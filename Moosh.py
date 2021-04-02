@@ -64,7 +64,7 @@ class Bragg:
         else:
             gamma[g] = np.sqrt(TypeEps[g] * TypeMu[g] * (k0**2) - (alpha**2))
 
-        T[0] = np.array([0, 1], [1, 0])
+
 
 
 
