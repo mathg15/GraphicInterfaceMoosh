@@ -21,5 +21,5 @@ class Bragg:
         t = 1 / (1-B[1, 1]*A[2, 2])
         self.S = np.array([[A[1, 1] + A[1, 2]*B[1, 1]*A[2, 1]*t, A[1, 2]*B[1, 2]*t], [B[2, 1]*A[2, 1]*t, B[2, 2]+A[2, 2]*B[1, 2]*B[2, 1]*t]])
 
-    def coef(self):
+    def coef(self, Theta, Lambda):
 
