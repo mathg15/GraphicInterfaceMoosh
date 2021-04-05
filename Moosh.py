@@ -17,7 +17,9 @@ class Bragg:
         self.Type = rep0
 
         rep1 = np.tile([600 / np.sqrt(2), 600 / (4 * 2)], (1, self.n_periods))
-        self.height = np.array([600, rep1, 100], dtype=object)
+        rep1 = np.insert(rep1, 0, 600)
+        rep1 = np.append(rep1, 100)
+        self.height = rep1
 
         self.pol = 1
 
