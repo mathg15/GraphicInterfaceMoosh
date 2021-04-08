@@ -1,5 +1,4 @@
 import numpy as np
-from simpy import I
 
 
 class Bragg:
@@ -31,6 +30,9 @@ class Bragg:
 
         # Définition de la polarisation
         self.pol = 1
+
+        # Nombre complexe
+        self.i = complex(0, 1)
 
     def cascade(self, A, B):
         # On combine deux matrices de diffusion A et B en une seule matrice de diffusion (2*2) S
@@ -75,33 +77,32 @@ class Bragg:
 
         # On modifie la détermination de la racine carrée pour obtenir un stabilité parfaite
         if g > 2:
-            gamma[1: g - 1] = gamma[1:g - 1] * (1 - 2 * (np.imag(gamma[1:g - 1]) < 0))
+            gamma[1: g - 2] = gamma[1:g - 2] * (1 - 2 * (np.imag(gamma[1:g - 2]) < 0))
         # Condition de l'onde sortante pour le dernier milieu
-        if np.real(TypeEps[g]) < 0 and np.real(TypeMu[g]) < 0 and np.real(
-                np.sqrt(TypeEps[g] * TypeMu * (k0 ** 2) - (alpha ** 2))):
-            gamma[g] = -np.sqrt(TypeEps[g] * TypeMu[g] - (alpha ** 2))
+        if np.real(TypeEps[g - 1]) < 0 and np.real(TypeMu[g - 1]) < 0 and np.real(
+                np.sqrt(TypeEps[g - 1] * TypeMu * (k0 ** 2) - (alpha ** 2))):
+            gamma[g] = -np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] - (alpha ** 2))
         else:
-            gamma[g] = np.sqrt(TypeEps[g] * TypeMu[g] * (k0 ** 2) - (alpha ** 2))
+            gamma[g - 1] = np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] * (k0 ** 2) - (alpha ** 2))
 
         # Définition de la matrice T
-        T = np.ndarray([[0, 1], [1, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]])
-
+        T = np.array([[[0, 1], [1, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
         # Cacul des matrices S
         for k in range(0, g - 1, 1):
             # Matrice de diffusion des couches
-            t = np.exp(I * gamma(k) * hauteur(k))
-            T[2 * k, :, :] = np.ndarray([[0, t], [t, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+            t = np.exp(self.i * gamma(k) * hauteur(k))
+            T[2 * k, :, :] = np.array([[[0, t], [t, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
 
             # Matrice de diffusion d'interface
             b1 = gamma[k] / (f[k])
             b2 = gamma[k] / (f[k + 1])
-            T[2 * k + 1, :, :] = np.ndarray(
-                [[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)], [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]],
-                [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+            T[2 * k + 1, :, :] = np.array(
+                [[[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)], [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]],
+                 [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
 
         # Matrice de diffusion pour la dernière couche
-        t = np.exp(I * gamma[g] * self.height[g])
-        T[2 * g, :, :] = np.ndarray([[0, t], [t, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+        t = np.exp(self.i * gamma[g - 1] * self.height[g])
+        T[2 * g, :, :] = np.array([[[0, t], [t, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
 
         # On combine les différentes matrices
         A[0, :, :] = T[0, :, :]
@@ -124,3 +125,4 @@ theta = (35 * np.pi) / 180
 
 a = Bragg(20, 600, theta)
 a.coefficient()
+
