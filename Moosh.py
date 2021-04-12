@@ -88,21 +88,20 @@ class Bragg:
         # Définition de la matrice T
         T = np.array([[[0, 1], [1, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
         # Cacul des matrices S
-        for k in range(0, g - 1, 1):
+        for k in range(0, g - 2, 1):
             # Matrice de diffusion des couches
-            t = np.exp(self.i * gamma(k) * hauteur(k))
-            T[2 * k, :, :] = np.array([[[0, t], [t, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
+            t = np.exp(self.i * gamma[k] * self.height[k])
+            T[2 * k, :, :] = np.array([[0, t], [t, 0]])
 
             # Matrice de diffusion d'interface
             b1 = gamma[k] / (f[k])
-            b2 = gamma[k] / (f[k + 1])
+            b2 = gamma[k + 1] / (f[k + 1])
             T[2 * k + 1, :, :] = np.array(
-                [[[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)], [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]],
-                 [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
+                [[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)], [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]])
 
         # Matrice de diffusion pour la dernière couche
-        t = np.exp(self.i * gamma[g - 1] * self.height[g])
-        T[2 * g, :, :] = np.array([[[0, t], [t, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
+        t = np.exp(self.i * gamma[g - 1] * self.height[g - 1])
+        T[2 * g, :, :] = np.array([[0, t], [t, 0]])
 
         # On combine les différentes matrices
         A[0, :, :] = T[0, :, :]
@@ -112,17 +111,18 @@ class Bragg:
         # Coefficient de reflexion de l'ensemble de la structure
         r = A[A.shape[1], :, :][0, 0]
         # Coefficient de transmission de l'ensemble de la structure
-        t = A[A.shape[1], :, :][1, 0]
+        tr = A[A.shape[1], :, :][1, 0]
         # Coefficient de réflexion de l'énergie
         R = np.abs(r) ** 2
         # Coefficient de transmission de l'énergie
-        T = (np.abs(t) ** 2) * gamma[g] * f[0] / (gamma[1] * f[g])
+        Tr = (np.abs(t) ** 2) * gamma[g - 1] * f[0] / (gamma[1] * f[g])
 
-        return r, t, R, T
+        return r, tr, R, Tr
 
 
 theta = (35 * np.pi) / 180
 
 a = Bragg(20, 600, theta)
 a.coefficient()
+
 
