@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 
 
 class Bragg:
@@ -25,7 +26,7 @@ class Bragg:
 
         # Idem pour la hauteur
         rep1 = np.tile([600 / np.sqrt(2), 600 / (4 * 2)], (1, self.n_periods))
-        rep1 = np.insert(rep1, 0, 600)
+        rep1 = np.insert(rep1, 0, 1600)
         rep1 = np.append(rep1, 100)
         self.height = rep1
 
@@ -90,7 +91,7 @@ class Bragg:
         # Définition de la matrice T
         T = np.zeros((2 * g, 2, 2), dtype=complex)
         T[0] = [[0, 1], [1, 0]]
-        # T = np.array([[[0, 1], [1, 0]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]])
+
         # Cacul des matrices S
         for k in range(g - 1):
             # Matrice de diffusion des couches
@@ -120,12 +121,12 @@ class Bragg:
         tr = A[len(A) - 1][1, 0]
 
         # Coefficient de réflexion de l'énergie
-        R = np.abs(r) ** 2
+        Re = np.abs(r) ** 2
 
         # Coefficient de transmission de l'énergie
         Tr = (np.abs(tr) ** 2) * gamma[g - 1] * f[0] / (gamma[0] * f[g - 1])
 
-        return r, tr, R, Tr
+        return r, tr, Re, Tr
 
     def affichageCoef(self, angle, longueurOnde):
 
@@ -167,6 +168,8 @@ class Bragg:
         plt.tight_layout()
         plt.show()
 
+        print(self.height)
+
     def spectrum(self, theta_):
 
         # Intervalle de longeur d'onde
@@ -197,12 +200,149 @@ class Bragg:
         plt.tight_layout()
         plt.show()
 
+    def beam(self, _lambda, _theta, C):
+
+        # Spatial window size
+        d = 70 * _lambda
+
+        # Incident beam width
+        w = 10 * _lambda
+
+        # Number of pixels horizontally
+        nx = d / 20
+
+        # Number of pixels verticaly
+        ny = np.floor(self.height / 20)
+        # print(ny)
+        # Number of modes
+        nmod = np.floor(0.83660 * (d / w))
+
+        # print(nmod)
+
+        self.height = self.height / d
+        l = _lambda / d
+        w = w / d
+
+        # On définie deux array comme des copies de Type
+        TypeEps = np.copy(self.Type)
+        TypeMu = np.copy(self.Type)
+
+        # On implémente les valeurs de la permittivité et de la perméabilité dans type pour définir le matériau
+        for i in range(2, -1, -1):
+            TypeEps[TypeEps == i] = self.Eps[i]
+            TypeMu[TypeMu == i] = self.Mu[i]
+
+        # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
+        if self.pol == 0:
+            f = TypeMu
+        else:
+            f = TypeEps
+
+        k0 = (2 * np.pi) / l
+
+        En = np.zeros((int(np.sum(ny)), int(nx)), dtype=complex)
+
+        # g est la longeur de Type
+        g = len(self.Type)
+
+        # Amplitude of the different modes
+        X = np.exp(-(w ** 2) * (np.pi ** 2) * np.arange(-nmod, nmod + 1) ** 2) * np.exp(
+            2 * self.i * np.pi * np.arange(-nmod, nmod + 1) * C)
+
+        # Scattering matrix
+        T = np.zeros((2 * g, 2, 2), dtype=complex)
+        T[0] = [[0, 1], [1, 0]]
+
+        for nm in range(int(2 * nmod)):
+            alpha = np.sqrt(TypeEps[0] * TypeMu[0]) * k0 * np.sin(_theta) + 2 * np.pi * (nm - nmod - 1)
+            # print("alpha :",alpha)
+            gamma = np.sqrt(TypeEps * TypeMu * (k0 ** 2) - np.ones(g) * (alpha ** 2))
+
+            if np.real(TypeEps[0]) < 0 and np.real(TypeMu[0]):
+                gamma[0] = -gamma[0]
+
+            # On modifie la détermination de la racine carrée pour obtenir un stabilité parfaite
+            if g > 2:
+                gamma[1: g - 2] = gamma[1:g - 2] * (1 - 2 * (np.imag(gamma[1:g - 2]) < 0))
+            # Condition de l'onde sortante pour le dernier milieu
+            if np.real(TypeEps[g - 1]) < 0 and np.real(TypeMu[g - 1]) < 0 and np.real(
+                    np.sqrt(TypeEps[g - 1] * TypeMu * (k0 ** 2) - (alpha ** 2))):
+                gamma[g - 1] = -np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] - (alpha ** 2))
+            else:
+                gamma[g - 1] = np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] * (k0 ** 2) - (alpha ** 2))
+
+            for k in range(g - 1):
+                # Matrice de diffusion des couches
+                t = np.exp(self.i * gamma[k] * self.height[k])
+                T[2 * k + 1] = np.array([[0, t], [t, 0]])
+
+                # Matrice de diffusion d'interface
+                b1 = gamma[k] / (f[k])
+                b2 = gamma[k + 1] / (f[k + 1])
+                T[2 * k + 2] = [[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)],
+                                [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]]
+
+            # Matrice de diffusion pour la dernière couche
+            t = np.exp(self.i * gamma[g - 1] * self.height[g - 1])
+            T[2 * g - 1] = [[0, t], [t, 0]]
+
+            A = np.zeros((2 * g - 1, 2, 2), dtype=complex)
+            A[0] = T[0]
+
+            H = np.zeros((2 * g - 1, 2, 2), dtype=complex)
+            H[0] = T[2 * g - 1]
+
+            for j in range(len(T) - 2):
+                A[j + 1] = self.cascade(A[j], T[j + 1])
+                H[j + 1] = self.cascade(T[len(T) - 1 - j], H[j])
+
+            # I = np.zeros((len(T), 2, 2), dtype=complex)
+
+            for j in range(len(T) - 2):
+                I = np.array([[A[j][1, 0], A[j][1, 1] * H[j][1, 1] * H[len(T) - 2 - j][0, 1]],
+                              [A[j][1, 0] * H[len(T) - 2 - j][0, 0],
+                               H[len(T) - 2 - j][0, 1] / (1 - A[j][1, 1]) * H[len(T) - 2 - j][0, 0]]], dtype=complex)
+
+            h = 0
+            I[2 * g - 1] = np.zeros((2, 2), dtype=complex)
+
+            # Computation of the field in the different layers for one mode (plane wave)
+            t = 1
+            E = np.zeros((int(sum(ny)), 1), dtype=complex)
+
+            for k in range(g - 1):
+                for m in range(int(ny[k])):
+                    h = h + self.height[k] / (ny[k])
+                    # print(h)
+                    E[t, 0] = I[2 * k - 1][0, 0] * np.exp(self.i * gamma[k] * h) + I[2 * k][1, 0] * np.exp(
+                        self.i * gamma[k] * (self.height[k] - h))
+                    print(E)
+
+                    t = t + 1
+                h = 0
+
+            E = E * np.exp(self.i * alpha * np.arange(0, nx) / nx)
+            # print(E)
+            En = En + X[nm] * E
+            # print(En)
+
+        V = np.abs(En)
+        # print(V)
+        V_ = V.max()
+        # plt.imshow((V / V_)*120)
+        # plt.show()
+
+
+
+
 
 theta = (35 * np.pi) / 180
 
 a = Bragg(20, 200)
 
 a.angular(600)
-a.spectrum(theta)
+# a.spectrum(theta)
+# a.beam(600, theta, 0.4)
+
 
 
