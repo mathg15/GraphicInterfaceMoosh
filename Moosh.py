@@ -1,6 +1,87 @@
 import numpy as np
+from scipy import special
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+
+
+class mat():
+
+    def __init__(self, _lambda):
+
+        self._lambda = _lambda
+        self.i = complex(0, 1)
+
+    def faddeva(self, z, n):
+
+        try:
+            len(arg) < 2
+        except:
+            n = np.array([])
+
+        try:
+            len(n) == 0
+        except:
+            n = 16
+
+        w = np.zeros(z.shape, dtype=complex)
+
+        idx = np.real(z) == 0
+        w[idx] = np.exp(-z[idx] ** 2) * special.erfc(np.imag(z[idx]))
+
+        idx = np.logical_not(idx)
+
+        idx1 = idx & np.imag(z) < 0
+        z[idx1] = np.conj(z[idx1])
+
+        M = 2 * n
+        M2 = M * 2
+        k = np.conj(np.arange(-M + 1, M - 1, 1))
+        L = np.sqrt(N / np.sqrt(2))
+
+        theta = k * np.pi / M
+        t = L * np.tan(theta / 2)
+        f = np.exp(-t ** 2) * (L ** 2 + t ** 2)
+        f = np.concatenate((0, f))
+        a = np.real(np.fft.fft(np.fft.fftshift(f))) / M2
+        a = np.flipud(a[np.arange(2, N + 1)])
+
+        z = (L + self.i * z[idx]) / (L - self.i * z[idx])
+        p = np.polyval(a, z)
+        w[idx] = 2 * p / (L - self.i * z[idx]) ** 2 + (1 / np.sqrt(np.pi)) / (L - self.i * z[idx])
+
+        w[idx1] = np.conj(2 * np.exp(-z[idx1]) ** 2 - w[idx1])
+
+    def Aubb(self):
+
+        w = 6.62606957e-25 * 299792458 / 1.602176565e-19 / self._lambda
+
+        f0 = 0.770
+        Gamma0 = 0.050
+        omega_p = 9.03
+        f = np.array([0.054, 0.050, 0.312, 0.719, 1.648])
+        Gamma = np.array([0.074, 0.035, 0.083, 0.125, 0.179])
+        omega = np.array([0.218, 2.885, 4.069, 6.137, 27.97])
+        sigma = np.array([0.742, 0.349, 0.830, 1.246, 1.795])
+
+        a = np.sqrt(w * (w + self.i * Gamma))
+        a = a * np.sign(np.real(a))
+        x = (a - omega) / (np.sqrt(2) * sigma)
+        y = (a + omega) / (np.sqrt(2) * sigma)
+
+        eps = 1 - omega_p ** 2 * f0 / (w * (w + self.i * Gamma0)) + np.sum(self.i * np.sqrt(np.pi) * f * omega_p ** 2 /
+                                                                           (2 * np.sqrt(2) * a * sigma) * ())
+
+    def h2o(self):
+
+        a = np.array(
+            [404.7, 435.8, 467.8, 480, 508.5, 546.1, 577, 579.1, 589.1, 643.8, 700, 750, 800, 850, 900, 950, 1000, 1050,
+             1100])
+        e = np.array([1.8056640625, 1.7988442641, 1.7932691569, 1.7914216336, 1.7875957401, 1.7833999936, 1.7804632356,
+                      1.7802764329, 1.7794226025, 1.7753164081, 1.7718005881, 1.766241, 1.763584, 1.760929, 1.763584,
+                      1.760929,
+                      1.758276, 1.755625, 1.752976])
+        eps = np.interp(self._lambda, a, ea)
+        return eps
 
 
 class Bragg:
@@ -333,16 +414,10 @@ class Bragg:
         # plt.show()
 
 
-
-
-
 theta = (35 * np.pi) / 180
 
 a = Bragg(20, 200)
 
-a.angular(600)
+# a.angular(600)
 # a.spectrum(theta)
-# a.beam(600, theta, 0.4)
-
-
-
+a.beam(600, theta, 0.4)
