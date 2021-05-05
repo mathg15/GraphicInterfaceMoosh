@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
-import matplotlib.image as im
-
 
 
 # Bragg
@@ -379,43 +377,56 @@ class sidebarWidget:
 
 def homepage():
     st.write("Homepage")
+    st.write('')
+    st.write('Work in progress')
+    st.write("Only the Bragg experiment is modeled => Moosh =>  Miroir de Bragg")
+
 
 def moosh():
+    sideBarExp = st.sidebar.radio("Choix de l'expérience", ('Miroir de Bragg', 'Plasmon de surface', 'Photovoltaïque'))
+    if sideBarExp == 'Miroir de Bragg':
+        with st.sidebar.beta_expander(" Miroir de Bragg"):
+            ####
+            st.markdown(" ## Paramètres")
+            mirpara = widget.sliderPara()
+            ####
+            st.markdown(" ## Coefficients")
+            coefAng = widget.lambdaInput1()
+            coefLamb = widget.angleInput1()
+            btnCoef = st.button("Afficher les coefficients")
+            ####
+            st.markdown(" ## Angular")
+            angLamb = widget.lambdaInput2()
+            btnAng = st.button("Afficher Angular")
+            ####
+            st.markdown(" ## Spectrum")
+            specAngle = widget.angleInput2()
+            btnSpec = st.button("Afficher Spectrum")
+            ####
+            st.markdown(" ## Beam")
+            bPos = widget.beamPos()
+            beamLamb = widget.lambdaInput3()
+            beamAng = widget.angleInput3()
+            btnBeam = st.button("Afficher Beam")
 
-    with st.sidebar.beta_expander(" Miroir de Bragg"):
-        ####
-        st.markdown(" ## Paramètres")
-        mirpara = widget.sliderPara()
-        ####
-        st.markdown(" ## Coefficients")
-        coefAng = widget.lambdaInput1()
-        coefLamb = widget.angleInput1()
-        btnCoef = st.button("Afficher les coefficients")
-        ####
-        st.markdown(" ## Angular")
-        angLamb = widget.lambdaInput2()
-        btnAng = st.button("Afficher Angular")
-        ####
-        st.markdown(" ## Spectrum")
-        specAngle = widget.angleInput2()
-        btnSpec = st.button("Afficher Spectrum")
-        ####
-        st.markdown(" ## Beam")
-        bPos = widget.beamPos()
-        beamLamb = widget.lambdaInput3()
-        beamAng = widget.angleInput3()
-        btnBeam = st.button("Afficher Beam")
+            Bragg_ = Bragg(mirpara, 200)
 
-        Bragg_ = Bragg(mirpara, 200)
+        if btnCoef == 1:
+            Bragg_.affichageCoef(coefAng, coefLamb)
 
-    if btnCoef == 1:
-        Bragg_.affichageCoef(coefAng, coefLamb)
+        if btnAng == 1:
+            Bragg_.angular(angLamb)
 
-    if btnAng == 1:
-        Bragg_.angular(angLamb)
+        if btnSpec == 1:
+            Bragg_.spectrum(specAngle)
 
-    if btnSpec == 1:
-        Bragg_.spectrum(specAngle)
+    elif sideBarExp == 'Plasmon de surface':
+        st.write("SPR")
+        st.write("Work in progress")
+    elif sideBarExp == 'Photovoltaïque':
+        st.write("Photovoltaïque")
+        st.write("Work in progress")
+
 
 def documentation():
     st.write("Documentation")
@@ -426,11 +437,12 @@ widget = sidebarWidget()
 st.sidebar.title("Navigation")
 st.sidebar.write('')
 
-side_menu_navigation = st.sidebar.radio('', ('Homepage','Moosh', 'Documentation'))
+side_menu_navigation = st.sidebar.radio('', ('Homepage', 'Moosh', 'Documentation'))
 if side_menu_navigation == 'Homepage':
     homepage()
 elif side_menu_navigation == 'Moosh':
     moosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
+
 
