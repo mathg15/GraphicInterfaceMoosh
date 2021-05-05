@@ -1,8 +1,9 @@
 import numpy as np
-import altair as alt
 import matplotlib.pyplot as plt
 import streamlit as st
 import matplotlib.image as im
+
+
 
 # Bragg
 
@@ -171,8 +172,6 @@ class Bragg:
         plt.tight_layout()
         st.pyplot(plt)
 
-        print(self.height)
-
     def spectrum(self, theta_):
 
         # Intervalle de longeur d'onde
@@ -336,9 +335,11 @@ class Bragg:
         # plt.imshow((V / V_)*120)
         # plt.show()
 
+
 # Haut de la page
 
 st.set_page_config(page_title="Moosh", page_icon="./Images/appImage.png")
+
 
 # Sidebar
 class sidebarWidget:
@@ -348,7 +349,7 @@ class sidebarWidget:
         return n
 
     def angleInput1(self):
-        n = st.number_input("Angle d'incidence", 0, 90, 35,format=None,key=1)
+        n = st.number_input("Angle d'incidence", 1, 90, 35, format=None, key=1)
         return n
 
     def angleInput2(self):
@@ -360,55 +361,76 @@ class sidebarWidget:
         return n
 
     def lambdaInput1(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600,format=None,key=1)
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=1)
         return n
 
     def lambdaInput2(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600,format=None,key=2)
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=2)
         return n
 
     def lambdaInput3(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600,format=None,key=3)
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=3)
         return n
 
     def beamPos(self):
-        n = st.slider("Position",0.0,1.0,0.4,0.1)
+        n = st.slider("Position", 0.0, 1.0, 0.4, 0.1)
         return n
+
+
+def homepage():
+    st.write("Homepage")
+
+def moosh():
+
+    with st.sidebar.beta_expander(" Miroir de Bragg"):
+        ####
+        st.markdown(" ## Paramètres")
+        mirpara = widget.sliderPara()
+        ####
+        st.markdown(" ## Coefficients")
+        coefAng = widget.lambdaInput1()
+        coefLamb = widget.angleInput1()
+        btnCoef = st.button("Afficher les coefficients")
+        ####
+        st.markdown(" ## Angular")
+        angLamb = widget.lambdaInput2()
+        btnAng = st.button("Afficher Angular")
+        ####
+        st.markdown(" ## Spectrum")
+        specAngle = widget.angleInput2()
+        btnSpec = st.button("Afficher Spectrum")
+        ####
+        st.markdown(" ## Beam")
+        bPos = widget.beamPos()
+        beamLamb = widget.lambdaInput3()
+        beamAng = widget.angleInput3()
+        btnBeam = st.button("Afficher Beam")
+
+        Bragg_ = Bragg(mirpara, 200)
+
+    if btnCoef == 1:
+        Bragg_.affichageCoef(coefAng, coefLamb)
+
+    if btnAng == 1:
+        Bragg_.angular(angLamb)
+
+    if btnSpec == 1:
+        Bragg_.spectrum(specAngle)
+
+def documentation():
+    st.write("Documentation")
+
 
 widget = sidebarWidget()
 
+st.sidebar.title("Navigation")
+st.sidebar.write('')
 
-with st.sidebar.beta_expander(" Miroir de Bragg"):
-    ####
-    st.markdown(" ## Paramètres")
-    mirpara = widget.sliderPara()
-    ####
-    st.markdown(" ## Coefficients")
-    coefAng = widget.lambdaInput1()
-    coefLamb = widget.angleInput1()
-    btnCoef = st.button("Afficher les coefficients")
-    ####
-    st.markdown(" ## Angular")
-    angLamb = widget.lambdaInput2()
-    btnAng = st.button("Afficher Angular")
-    ####
-    st.markdown(" ## Spectrum")
-    specAngle = widget.angleInput2()
-    btnSpec = st.button("Afficher Spectrum")
-    ####
-    st.markdown(" ## Beam")
-    bPos = widget.beamPos()
-    beamLamb = widget.lambdaInput3()
-    beamAng = widget.angleInput3()
-    btnBeam = st.button("Afficher Beam")
+side_menu_navigation = st.sidebar.radio('', ('Homepage','Moosh', 'Documentation'))
+if side_menu_navigation == 'Homepage':
+    homepage()
+elif side_menu_navigation == 'Moosh':
+    moosh()
+elif side_menu_navigation == 'Documentation':
+    documentation()
 
-Bragg_ = Bragg(mirpara,200)
-
-if btnCoef == 1:
-    Bragg_.affichageCoef(coefAng, coefLamb)
-
-if btnAng == 1:
-    Bragg_.angular(angLamb)
-
-if btnSpec == 1:
-    Bragg_.spectrum(specAngle)
