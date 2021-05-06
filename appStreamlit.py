@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
+import matplotlib.image as im
 
 
 # Bragg
-
 class Bragg:
 
-    def __init__(self, periods, Npoints):
+    def __init__(self, periods, Npoints, pol):
 
         # On définie la permittivité et la perméabilité
         self.Eps = np.array([1, 2, 4])
@@ -33,7 +33,7 @@ class Bragg:
         self.height = rep1
 
         # Définition de la polarisation
-        self.pol = 1
+        self.pol = pol
 
         self.i = complex(0, 1)
 
@@ -158,7 +158,7 @@ class Bragg:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion")
+        plt.title("Reflexion for lambda = 600 nm")
         plt.plot(rangeAngle, abs(c))
         plt.ylabel("Reflexion")
         plt.xlabel("Angle (degrees)")
@@ -334,6 +334,152 @@ class Bragg:
         # plt.show()
 
 
+# Mat
+class mat():
+
+    def __init__(self, _lambda):
+        self._lambda = _lambda
+        self.i = complex(0, 1)
+
+    def Aubb(self):
+        w = 6.62606957e-25 * 299792458 / 1.602176565e-19 / self._lambda
+
+        f0 = 0.770
+        Gamma0 = 0.050
+        omega_p = 9.03
+        f = np.array([0.054, 0.050, 0.312, 0.719, 1.648])
+        Gamma = np.array([0.074, 0.035, 0.083, 0.125, 0.179])
+        omega = np.array([0.218, 2.885, 4.069, 6.137, 27.97])
+        sigma = np.array([0.742, 0.349, 0.830, 1.246, 1.795])
+
+        a = np.sqrt(w * (w + self.i * Gamma))
+        a = a * np.sign(np.real(a))
+        x = (a - omega) / (np.sqrt(2) * sigma)
+        y = (a + omega) / (np.sqrt(2) * sigma)
+
+        eps = 1 - omega_p ** 2 * f0 / (w * (w + self.i * Gamma0)) + np.sum(self.i * np.sqrt(np.pi) * f * omega_p ** 2 /
+                                                                           (2 * np.sqrt(2) * a * sigma) * (
+                                                                                   special.wofz(x) + special.wofz(
+                                                                               y)))
+        return eps
+
+    def bk7(self):
+        a = np.array(
+            [190.75, 193.73, 196.8, 199.98, 203.25, 206.64, 210.14, 213.77, 217.52, 221.4, 225.43, 229.6, 233.93,
+             238.43,
+             243.11, 247.97, 253.03, 258.3, 263.8, 269.53, 275.52, 281.78, 288.34, 295.2, 302.4, 309.96, 317.91, 326.28,
+             335.1, 344.4, 354.24, 364.66, 375.71, 387.45, 399.95, 413.28, 427.54, 442.8, 459.2, 476.87, 495.94, 516.6,
+             539.0700000000001, 563.5700000000001, 590.41, 619.9299999999999, 652.55, 688.8099999999999,
+             729.3200000000001, 774.91, 826.5700000000001, 885.61, 953.73, 1033.21, 1127.14, 1239.85])
+
+        e = np.array([2.8406742849, 2.804261715649, 2.770563579001, 2.739329528464, 2.710376127684, 2.683571461921,
+                      2.658732435844, 2.635706792196, 2.614339739664, 2.594480126121, 2.575996110081, 2.558755351321,
+                      2.542647106624, 2.527572147556, 2.513432915161, 2.500146004225, 2.487638700625, 2.475842457361,
+                      2.464692764356, 2.4541415649, 2.444132010384, 2.434623467584, 2.425575745476, 2.416958387649,
+                      2.4087350401, 2.400878973529, 2.393369890704, 2.386181504529, 2.379296995009, 2.372696606736,
+                      2.366369966601, 2.360300650929, 2.354472356041, 2.348881151236, 2.343513969316, 2.3383608889,
+                      2.333415112704, 2.328666844009, 2.324109397009, 2.319733086489, 2.315534369344, 2.311503651769,
+                      2.307628351744, 2.303905051044, 2.300324289124, 2.296867553764, 2.2935285136, 2.290285730161,
+                      2.287120856329, 2.284009554436, 2.2809154729, 2.277793303696, 2.274585797929, 2.271202716601,
+                      2.267514953929, 2.263330686969])
+
+        eps = np.interp(self._lambda, a, e)
+        return eps
+
+    def cr(self):
+        a = np.array(
+            [206.64, 208.38, 210.14, 211.94, 213.77, 215.63, 217.52, 219.44, 221.4, 223.4, 225.43, 227.5, 229.6, 231.75,
+             233.93, 236.16, 238.43, 240.75, 243.11, 245.52, 247.97, 250.48, 253.03, 255.64, 258.3, 261.02, 263.8,
+             266.63,
+             269.53, 272.49, 275.52, 278.62, 281.78, 285.02, 288.34, 291.73, 295.2, 298.76, 302.4, 306.14, 309.96,
+             313.89,
+             317.91, 322.04, 326.28, 330.63, 335.1, 339.69, 344.4, 349.25, 354.24, 359.38, 364.66, 370.11, 375.71,
+             381.49,
+             387.45, 393.6, 399.95, 406.51, 413.28, 420.29, 427.54, 435.04, 442.8, 450.86, 459.2, 467.87, 476.87,
+             486.22,
+             495.94, 506.06, 516.6, 527.6, 539.0700000000001, 551.05, 563.5700000000001, 576.6799999999999, 590.41,
+             604.8099999999999, 619.9299999999999, 635.8200000000001, 652.55, 670.1900000000001, 688.8099999999999,
+             708.49, 729.3200000000001, 751.4299999999999, 774.91, 799.9, 826.5700000000001, 855.0700000000001,
+             885.61, 918.41, 953.73, 991.88, 1033.21, 1078.13, 1127.14, 1180.81, 1239.85])
+
+        e = np.array([-0.7925 + 4.9932 * self.i, -0.8233535156249996 + 5.004690625 * self.i, -0.8268 + 5.0224 * self.i,
+                      -0.8143253906250001 + 5.04143125 * self.i, -0.7974999999999999 + 5.0568 * self.i,
+                      -0.7898343749999999 + 5.06141015625 * self.i, -0.7974999999999999 + 5.0568 * self.i,
+                      -0.8382175781250001 + 5.039485937499999 * self.i,
+                      -0.8904000000000001 + 5.016999999999999 * self.i,
+                      -0.9344566406250001 + 4.995 * self.i, -0.9827000000000004 + 4.9764 * self.i,
+                      -1.043912890625 + 4.968224999999999 * self.i, -1.1095 + 4.9632 * self.i,
+                      -1.170687890625 + 4.954249999999999 * self.i, -1.2363 + 4.948399999999999 * self.i,
+                      -1.314863671875 + 4.9485078125 * self.i, -1.3992 + 4.9594 * self.i,
+                      -1.4845125 + 4.987915625 * self.i,
+                      -1.5729 + 5.032000000000001 * self.i, -1.667080078125 + 5.093614062499999 * self.i,
+                      -1.7604 + 5.168 * self.i, -1.844105859375001 + 5.252843749999999 * self.i,
+                      -1.9256 + 5.343 * self.i,
+                      -2.008280859375 + 5.433718750000001 * self.i, -2.0956 + 5.52 * self.i,
+                      -2.198756640625 + 5.590724999999999 * self.i, -2.2981 + 5.657999999999999 * self.i,
+                      -2.37359375 + 5.723549999999999 * self.i, -2.435999999999999 + 5.810199999999999 * self.i,
+                      -2.482481640625 + 5.962537499999999 * self.i, -2.5347 + 6.1204 * self.i,
+                      -2.6244109375 + 6.2189625 * self.i,
+                      -2.7225 + 6.3072 * self.i, -2.806390624999999 + 6.413383593750001 * self.i,
+                      -2.886000000000001 + 6.540800000000001 * self.i, -2.9661984375 + 6.713525 * self.i,
+                      -3.039999999999999 + 6.899999999999999 * self.i, -3.098131640625 + 7.069900000000001 * self.i,
+                      -3.150900000000001 + 7.238 * self.i, -3.208974609375 + 7.40703125 * self.i,
+                      -3.263599999999999 + 7.584 * self.i, -3.304599999999999 + 7.784249999999999 * self.i,
+                      -3.345600000000001 + 7.987 * self.i, -3.401062109375 + 8.17059375 * self.i,
+                      -3.4611 + 8.35 * self.i,
+                      -3.526905078125 + 8.530298437499999 * self.i, -3.5784 + 8.721 * self.i,
+                      -3.583821484374999 + 8.9339625 * self.i,
+                      -3.575199999999999 + 9.1686 * self.i, -3.571168750000001 + 9.453225000000002 * self.i,
+                      -3.584000000000001 + 9.715200000000001 * self.i, -3.649484375 + 9.854289843749999 * self.i,
+                      -3.722800000000001 + 9.969600000000002 * self.i, -3.759271874999999 + 10.13952734375 * self.i,
+                      -3.788400000000002 + 10.336 * self.i, -3.820492187500001 + 10.55176875 * self.i,
+                      -3.870400000000001 + 10.803 * self.i, -3.970114453125 + 11.1131546875 * self.i,
+                      -4.082400000000002 + 11.457 * self.i, -4.174128124999998 + 11.80670859375 * self.i,
+                      -4.258500000000001 + 12.1888 * self.i, -4.342965234375002 + 12.63259375 * self.i,
+                      -4.4115 + 13.1068 * self.i,
+                      -4.450119140625 + 13.573871875 * self.i, -4.457100000000001 + 14.074 * self.i,
+                      -4.424873437500001 + 14.64025 * self.i, -4.352400000000001 + 15.264 * self.i,
+                      -4.252692187500002 + 15.95943125 * self.i, -4.073999999999999 + 16.6912 * self.i,
+                      -3.729884765625002 + 17.43339375 * self.i, -3.327499999999999 + 18.15 * self.i,
+                      -3.000443359374998 + 18.772903125 * self.i, -2.620799999999999 + 19.3806 * self.i,
+                      -2.026633984375 + 20.082478125 * self.i, -1.416800000000002 + 20.7126 * self.i,
+                      -0.9634605468749982 + 21.1424765625 * self.i, -0.6539999999999981 + 21.3808 * self.i,
+                      -0.5513378906250015 + 21.34546875 * self.i, -0.5858999999999988 + 21.186 * self.i,
+                      -0.7052437500000011 + 21.02169921875 * self.i, -0.9043999999999972 + 20.856 * self.i,
+                      -1.179668359375 + 20.732109375 * self.i, -1.478899999999999 + 20.646 * self.i,
+                      -1.7591859375 + 20.610875 * self.i,
+                      -1.993300000000001 + 20.6244 * self.i, -2.129018359374999 + 20.67811875 * self.i,
+                      -2.196399999999999 + 20.808 * self.i, -2.213423828125 + 21.0548015625 * self.i,
+                      -2.1615 + 21.3968 * self.i,
+                      -1.997846484375 + 21.854225 * self.i, -1.8063 + 22.3416 * self.i,
+                      -1.679373437499999 + 22.75875 * self.i,
+                      -1.5663 + 23.1616 * self.i, -1.472354296874999 + 23.5625921875 * self.i,
+                      -1.316699999999999 + 23.9944 * self.i,
+                      -0.9806999999999988 + 24.5252125 * self.i, -0.5663999999999998 + 25.06 * self.i,
+                      -0.1026824218749987 + 25.5120140625 * self.i * self.i, 0.2880000000000003 + 25.9192 * self.i,
+                      0.5030988281249993 + 26.2924390625 * self.i, 0.4380000000000006 + 26.6432 * self.i])
+
+        eps = np.interp(self._lambda, a, e)
+        return eps
+
+    def h2o(self):
+        a = np.array(
+            [404.7, 435.8, 467.8, 480, 508.5, 546.1, 577, 579.1, 589.1, 643.8, 700, 750, 800, 850, 900, 950, 1000, 1050,
+             1100])
+        e = np.array([1.8056640625, 1.7988442641, 1.7932691569, 1.7914216336, 1.7875957401, 1.7833999936, 1.7804632356,
+                      1.7802764329, 1.7794226025, 1.7753164081, 1.7718005881, 1.766241, 1.763584, 1.760929, 1.763584,
+                      1.760929,
+                      1.758276, 1.755625, 1.752976])
+        eps = np.interp(self._lambda, a, e)
+        return eps
+
+    def affichageEpsMat(self):
+        print("Epsilon Au :", self.Aubb())
+        print("Epsilon H2o :", self.h2o())
+        print("Epsilon Cr :", self.cr())
+        print("Epsilon BK7 : ", self.bk7())
+
+
 # Haut de la page
 
 st.set_page_config(page_title="Moosh", page_icon="./Images/appImage.png")
@@ -344,6 +490,10 @@ class sidebarWidget:
 
     def sliderPara(self):
         n = st.slider("Nombre de miroirs", 1, 50, 20, 1)
+        return n
+
+    def checkPara(self):
+        n = st.radio("Polarisation", ("Polarisation TE", "Polarisation TM"))
         return n
 
     def angleInput1(self):
@@ -370,16 +520,26 @@ class sidebarWidget:
         n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=3)
         return n
 
+    def lambdaInput4(self):
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=4)
+        return n
+
     def beamPos(self):
         n = st.slider("Position", 0.0, 1.0, 0.4, 0.1)
         return n
 
+    def selectBox1(self):
+        n = st.selectbox("Choix du verre", ("BK7","BAF10","BAK1"))
+        return n
 
+
+# def homepage():
+#     st.title("Moosh HomePage")
+#     st.write('Homepage')
+#     st.text('Work in progress')
+#     st.text("Only the Bragg experiment is modeled => Moosh =>  Miroir de Bragg")
 def homepage():
     st.write("Homepage")
-    st.write('')
-    st.write('Work in progress')
-    st.write("Only the Bragg experiment is modeled => Moosh =>  Miroir de Bragg")
 
 
 def moosh():
@@ -389,6 +549,7 @@ def moosh():
             ####
             st.markdown(" ## Paramètres")
             mirpara = widget.sliderPara()
+            polparab = widget.checkPara()
             ####
             st.markdown(" ## Coefficients")
             coefAng = widget.lambdaInput1()
@@ -409,7 +570,12 @@ def moosh():
             beamAng = widget.angleInput3()
             btnBeam = st.button("Afficher Beam")
 
-            Bragg_ = Bragg(mirpara, 200)
+        if polparab == 'Polarisation TE':
+            polbragg = 1
+        elif polpara == 'Polarisation TM':
+            polbragg = 0
+
+        Bragg_ = Bragg(mirpara, 200, polbragg)
 
         if btnCoef == 1:
             Bragg_.affichageCoef(coefAng, coefLamb)
@@ -421,15 +587,24 @@ def moosh():
             Bragg_.spectrum(specAngle)
 
     elif sideBarExp == 'Plasmon de surface':
-        st.write("SPR")
-        st.write("Work in progress")
-    elif sideBarExp == 'Photovoltaïque':
-        st.write("Photovoltaïque")
-        st.write("Work in progress")
+        st.text("SPR")
+        st.text("Work in progress")
+        with st.sidebar.beta_expander("Plasmon de surface"):
+            ####
+            lambmat = widget.lambdaInput4()
+            material = mat(lambmat)
+            ####
+            st.markdown(" ## Choix des matériaux")
+            ####
+            sprVerre = widget.selectBox1()
+            if sprVerre == 'BK7':
+                epsVerre = material.bk7()
+            st.write("Espilon du verre =", epsVerre)
 
 
 def documentation():
-    st.write("Documentation")
+    st.write('Docs')
+    st.text("Work in progress")
 
 
 widget = sidebarWidget()
@@ -444,5 +619,4 @@ elif side_menu_navigation == 'Moosh':
     moosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
-
 
