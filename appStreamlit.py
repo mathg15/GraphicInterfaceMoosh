@@ -1150,7 +1150,7 @@ class mooshGen:
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
             self.mat3 = widget.selecBoxGen3()
-            self.mat3 = widget.hauteurGen3()
+            self.haut3 = widget.hauteurGen3()
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
 
