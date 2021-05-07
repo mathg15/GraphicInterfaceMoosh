@@ -1320,17 +1320,17 @@ class mooshGen:
         if self.mat3 == 'Air':
             Eps3 = 1
         elif self.mat3 == 'Eau':
-            Eps3 = material.h2o()
+            Eps3 = epsH2O
         elif self.mat3 == 'Bk7':
-            Eps3 = material.bk7()
+            Eps3 = epsbk7
         elif self.mat3 == 'SiO2':
-            Eps3 = material.SiO2()
+            Eps3 = epsSiO2
         elif self.mat3 == 'TiO2':
-            Eps3 = material.TiO2()
+            Eps3 = epsTiO2
         elif self.mat3 == 'Au':
-            Eps3 = material.Au()
+            Eps3 = epsAu
         elif self.mat3 == 'Cr':
-            Eps3 = material.cr()
+            Eps3 = epsCr
 
         if self.nombreCouches == 3:
             return Eps1, Eps2, Eps3
@@ -1340,17 +1340,17 @@ class mooshGen:
         if self.mat4 == 'Air':
             Eps4 = 1
         elif self.mat4 == 'Eau':
-            Eps4 = material.h2o()
+            Eps4 = epsH2O
         elif self.mat4 == 'Bk7':
-            Eps4 = material.bk7()
+            Eps4 = epsbk7
         elif self.mat4 == 'SiO2':
-            Eps4 = material.SiO2()
+            Eps4 = epsSiO2
         elif self.mat4 == 'TiO2':
-            Eps4 = material.TiO2()
+            Eps4 = epsTiO2
         elif self.mat4 == 'Au':
-            Eps4 = material.Au()
+            Eps4 = epsAu
         elif self.mat4 == 'Cr':
-            Eps4 = material.cr()
+            Eps4 = epsCr
 
         if self.nombreCouches == 4:
             return Eps1, Eps2, Eps3, Eps4
@@ -1360,17 +1360,17 @@ class mooshGen:
         if self.mat5 == 'Air':
             Eps5 = 1
         elif self.mat5 == 'Eau':
-            Eps5 = material.h2o()
+            Eps5 = epsH2O
         elif self.mat5 == 'Bk7':
-            Eps5 = material.bk7()
+            Eps5 = epsbk7
         elif self.mat5 == 'SiO2':
-            Eps5 = material.SiO2()
+            Eps5 = epsSiO2
         elif self.mat5 == 'TiO2':
-            Eps5 = material.TiO2()
+            Eps5 = epsTiO2
         elif self.mat5 == 'Au':
-            Eps5 = material.Au()
+            Eps5 = epsAu
         elif self.mat5 == 'Cr':
-            Eps5 = material.cr()
+            Eps5 = epsCr
 
         if self.nombreCouches == 5:
             return Eps1, Eps2, Eps3, Eps4, Eps5
@@ -1380,17 +1380,17 @@ class mooshGen:
         if self.mat6 == 'Air':
             Eps6 = 1
         elif self.mat6 == 'Eau':
-            Eps6 = material.h2o()
+            Eps6 = epsH2O
         elif self.mat6 == 'Bk7':
-            Eps6 = material.bk7()
+            Eps6 = epsbk7
         elif self.mat6 == 'SiO2':
-            Eps6 = material.SiO2()
+            Eps6 = epsSiO2
         elif self.mat6 == 'TiO2':
-            Eps6 = material.TiO2()
+            Eps6 = epsTiO2
         elif self.mat6 == 'Au':
-            Eps6 = material.Au()
+            Eps6 = epsAu
         elif self.mat6 == 'Cr':
-            Eps6 = material.cr()
+            Eps6 = epsCr
 
         if self.nombreCouches == 6:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6
@@ -1400,17 +1400,17 @@ class mooshGen:
         if self.mat7 == 'Air':
             Eps7 = 1
         elif self.mat7 == 'Eau':
-            Eps7 = material.h2o()
+            Eps7 = epsH2O
         elif self.mat7 == 'Bk7':
-            Eps7 = material.bk7()
+            Eps7 = epsbk7
         elif self.mat7 == 'SiO2':
-            Eps7 = material.SiO2()
+            Eps7 = epsSiO2
         elif self.mat7 == 'TiO2':
-            Eps7 = material.TiO2()
+            Eps7 = epsTiO2
         elif self.mat7 == 'Au':
-            Eps7 = material.Au()
+            Eps7 = epsAu
         elif self.mat7 == 'Cr':
-            Eps7 = material.cr()
+            Eps7 = epsCr
 
         if self.nombreCouches == 7:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7
@@ -1420,17 +1420,17 @@ class mooshGen:
         if self.mat8 == 'Air':
             Eps8 = 1
         elif self.mat8 == 'Eau':
-            Eps8 = material.h2o()
+            Eps8 = epsH2O
         elif self.mat8 == 'Bk7':
-            Eps8 = material.bk7()
+            Eps8 = epsbk7
         elif self.mat8 == 'SiO2':
-            Eps8 = material.SiO2()
+            Eps8 = epsSiO2
         elif self.mat8 == 'TiO2':
-            Eps8 = material.TiO2()
+            Eps8 = epsTiO2
         elif self.mat8 == 'Au':
-            Eps8 = material.Au()
+            Eps8 = epsAu
         elif self.mat8 == 'Cr':
-            Eps8 = material.cr()
+            Eps8 = epsCr
 
         if self.nombreCouches == 8:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8
@@ -1440,17 +1440,17 @@ class mooshGen:
         if self.mat9 == 'Air':
             Eps9 = 1
         elif self.mat9 == 'Eau':
-            Eps9 = material.h2o()
+            Eps9 = epsH2O
         elif self.mat9 == 'Bk7':
-            Eps9 = material.bk7()
+            Eps9 == epsbk7
         elif self.mat9 == 'SiO2':
-            Eps9 = material.SiO2()
+            Eps9 = epsSiO2
         elif self.mat9 == 'TiO2':
-            Eps9 = material.TiO2()
+            Eps9 = epsTiO2
         elif self.mat9 == 'Au':
-            Eps9 = material.Au()
+            Eps9 = epsAu
         elif self.mat9 == 'Cr':
-            Eps9 = material.cr()
+            Eps9 = epsCr
 
         if self.nombreCouches == 9:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9
@@ -1460,17 +1460,17 @@ class mooshGen:
         if self.mat10 == 'Air':
             Eps10 = 1
         elif self.mat10 == 'Eau':
-            Eps10 = material.h2o()
+            Eps10 = epsH2O
         elif self.mat10 == 'Bk7':
-            Eps10 = material.bk7()
+            Eps10 = epsbk7
         elif self.mat10 == 'SiO2':
-            Eps10 = material.SiO2()
+            Eps10 = epsSiO2
         elif self.mat10 == 'TiO2':
-            Eps10 = material.TiO2()
+            Eps10 = epsTiO2
         elif self.mat10 == 'Au':
-            Eps10 = material.Au()
+            Eps10 = epsAu
         elif self.mat10 == 'Cr':
-            Eps10 = material.cr()
+            Eps10 = epsCr
 
         if self.nombreCouches == 10:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10
@@ -1492,35 +1492,35 @@ class mooshGen:
 
         elif self.nombreCouches == 3:
             Eps1, Eps2, Eps3 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3])
+            self.Eps = np.array([Eps1, Eps2, Eps3],dtype=complex)
             self.Mu = np.array([1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3])
             self.Type = np.array([0, 1, 2])
 
         elif self.nombreCouches == 4:
             Eps1, Eps2, Eps3, Eps4 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
             self.Type = np.array([0, 1, 2, 3])
 
         elif self.nombreCouches == 5:
             Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
             self.Type = np.array([0, 1, 2, 3, 4])
 
         elif self.nombreCouches == 6:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
             self.Type = np.array([0, 1, 2, 3, 4, 5])
 
         elif self.nombreCouches == 7:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array(
                 [self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7])
@@ -1528,7 +1528,7 @@ class mooshGen:
 
         elif self.nombreCouches == 8:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8])
@@ -1536,7 +1536,7 @@ class mooshGen:
 
         elif self.nombreCouches == 9:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9])
@@ -1544,7 +1544,7 @@ class mooshGen:
 
         elif self.nombreCouches == 10:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10])
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10],dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9, self.haut10])
@@ -1645,22 +1645,22 @@ class mooshGen:
         st.write("Coefficient de reflexion de l'énergie :", reflexionE)
         st.write("Coefficient de transmission de l'énergie :", transmissionE)
 
-    def show(self):
-        print(self.Eps)
-        if self.nombreCouches == 1:
-            esp1show = self.typemat()
-            st.write(self.mat1)
-            st.write(self.haut1)
-
-            st.write(esp1show)
-        elif self.nombreCouches == 2:
-            esp1show, eps2show = self.typemat()
-            st.write(self.mat1)
-            st.write(esp1show)
-            st.write(self.haut1)
-            st.write(self.mat2)
-            st.write(eps2show)
-            st.write(self.haut2)
+    # def show(self):
+    #     print(self.Eps)
+    #     if self.nombreCouches == 1:
+    #         esp1show = self.typemat()
+    #         st.write(self.mat1)
+    #         st.write(self.haut1)
+    #
+    #         st.write(esp1show)
+    #     elif self.nombreCouches == 2:
+    #         esp1show, eps2show = self.typemat()
+    #         st.write(self.mat1)
+    #         st.write(esp1show)
+    #         st.write(self.haut1)
+    #         st.write(self.mat2)
+    #         st.write(eps2show)
+    #         st.write(self.haut2)
 
 
 
@@ -1822,7 +1822,7 @@ def genmoosh():
         strucSlider = widget.struslider()
         gen = mooshGen(strucSlider)
         gen.structure()
-    gen.show()
+    # gen.show()
 
     with st.sidebar.beta_expander('Coefficients'):
         gen.affichageCoef()
@@ -1931,6 +1931,3 @@ elif side_menu_navigation == 'Exemples':
     exmoosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
-
-
-
