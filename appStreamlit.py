@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import special
 import streamlit as st
 import matplotlib.image as im
 
@@ -335,13 +336,13 @@ class Bragg:
 
 
 # Mat
-class mat():
+class mat:
 
     def __init__(self, _lambda):
         self._lambda = _lambda
         self.i = complex(0, 1)
 
-    def Aubb(self):
+    def Au(self):
         w = 6.62606957e-25 * 299792458 / 1.602176565e-19 / self._lambda
 
         f0 = 0.770
@@ -1105,11 +1106,562 @@ class mat():
         return eps
 
     def affichageEpsMat(self):
-        print("Epsilon Au :", self.Aubb())
+        print("Epsilon Au :", self.Au())
         print("Epsilon H2o :", self.h2o())
         print("Epsilon Cr :", self.cr())
         print("Epsilon BK7 : ", self.bk7())
         print("Epsilon TiO2 : ", self.TiO2())
+
+
+class mooshGen:
+
+    def __init__(self, nbCouche):
+        self.nombreCouches = nbCouche
+        self.pol = 1
+        self.lambda_ = 600
+        self.Eps = np.array([])
+        # self.Eps1 = 1
+        # self.Eps2 = 1
+        # self.Eps3 = 1
+        # self.Eps4 = 1
+        # self.Eps5 = 1
+        # self.Eps6 = 1
+        # self.Eps7 = 1
+        # self.Eps8 = 1
+        # self.Eps9 = 1
+        # self.Eps10 = 1
+
+        self.Mu = np.array([])
+        self.Type = np.array([])
+        self.hauteur = np.array([])
+
+        if self.nombreCouches == 1:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+
+        elif self.nombreCouches == 2:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+
+        elif self.nombreCouches == 3:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+
+        elif self.nombreCouches == 4:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.mat3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+
+        elif self.nombreCouches == 5:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+            self.mat5 = widget.selecBoxGen5()
+            self.haut5 = widget.hauteurGen5()
+
+        elif self.nombreCouches == 6:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+            self.mat5 = widget.selecBoxGen5()
+            self.haut5 = widget.hauteurGen5()
+            self.mat6 = widget.selecBoxGen6()
+            self.haut6 = widget.hauteurGen6()
+
+        elif self.nombreCouches == 7:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+            self.mat5 = widget.selecBoxGen5()
+            self.haut5 = widget.hauteurGen5()
+            self.mat6 = widget.selecBoxGen6()
+            self.haut6 = widget.hauteurGen6()
+            self.mat7 = widget.selecBoxGen7()
+            self.haut7 = widget.hauteurGen7()
+
+        elif self.nombreCouches == 8:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+            self.mat5 = widget.selecBoxGen5()
+            self.haut5 = widget.hauteurGen5()
+            self.mat6 = widget.selecBoxGen6()
+            self.haut6 = widget.hauteurGen6()
+            self.mat7 = widget.selecBoxGen7()
+            self.haut7 = widget.hauteurGen7()
+            self.mat8 = widget.selecBoxGen8()
+            self.haut8 = widget.hauteurGen8()
+
+        elif self.nombreCouches == 9:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+            self.mat5 = widget.selecBoxGen5()
+            self.haut5 = widget.hauteurGen5()
+            self.mat6 = widget.selecBoxGen6()
+            self.haut6 = widget.hauteurGen6()
+            self.mat7 = widget.selecBoxGen7()
+            self.haut7 = widget.hauteurGen7()
+            self.mat8 = widget.selecBoxGen8()
+            self.haut8 = widget.hauteurGen8()
+            self.mat9 = widget.selecBoxGen9()
+            self.haut9 = widget.hauteurGen9()
+
+        elif self.nombreCouches == 10:
+            self.mat1 = widget.selecBoxGen1()
+            self.haut1 = widget.hauteurGen1()
+            self.mat2 = widget.selecBoxGen2()
+            self.haut2 = widget.hauteurGen2()
+            self.mat3 = widget.selecBoxGen3()
+            self.haut3 = widget.hauteurGen3()
+            self.mat4 = widget.selecBoxGen4()
+            self.haut4 = widget.hauteurGen4()
+            self.mat5 = widget.selecBoxGen5()
+            self.haut5 = widget.hauteurGen5()
+            self.mat6 = widget.selecBoxGen6()
+            self.haut6 = widget.hauteurGen6()
+            self.mat7 = widget.selecBoxGen7()
+            self.haut7 = widget.hauteurGen7()
+            self.mat8 = widget.selecBoxGen8()
+            self.haut8 = widget.hauteurGen8()
+            self.mat9 = widget.selecBoxGen9()
+            self.haut9 = widget.hauteurGen9()
+            self.mat10 = widget.selecBoxGen10()
+            self.haut10 = widget.hauteurGen10()
+
+    def typemat(self):
+
+        m = mat(600)
+        epsbk7 = m.bk7()
+        epsCr = m.cr()
+        epsAu = m.Au()
+        epsH2O = m.h2o()
+        epsTiO2 = m.TiO2()
+        epsSiO2 = m.SiO2()
+
+        ####
+
+        if self.mat1 == 'Air':
+            Eps1 = 1
+        elif self.mat1 == 'Eau':
+            Eps1 = epsH2O
+        elif self.mat1 == 'Bk7':
+            Eps1 = epsbk7
+        elif self.mat1 == 'SiO2':
+            Eps1 = epsSiO2
+        elif self.mat1 == 'TiO2':
+            Eps1 = epsTiO2
+        elif self.mat1 == 'Au':
+            Eps1 = epsAu
+        elif self.mat1 == 'Cr':
+            Eps1 = epsCr
+
+        if self.nombreCouches == 1:
+            return Eps1
+
+        ####
+
+        if self.mat2 == 'Air':
+            Eps2 = 1
+        elif self.mat2 == 'Eau':
+            Eps2 = epsH2O
+        elif self.mat2 == 'Bk7':
+            Eps2 = epsbk7
+        elif self.mat2 == 'SiO2':
+            Eps2 = epsSiO2
+        elif self.mat2 == 'TiO2':
+            Eps2 = epsTiO2
+        elif self.mat2 == 'Au':
+            Eps2 = epsAu
+        elif self.mat2 == 'Cr':
+            Eps2 = epsCr
+
+        if self.nombreCouches == 2:
+            return Eps1, Eps2
+
+        ####
+
+        if self.mat3 == 'Air':
+            Eps3 = 1
+        elif self.mat3 == 'Eau':
+            Eps3 = material.h2o()
+        elif self.mat3 == 'Bk7':
+            Eps3 = material.bk7()
+        elif self.mat3 == 'SiO2':
+            Eps3 = material.SiO2()
+        elif self.mat3 == 'TiO2':
+            Eps3 = material.TiO2()
+        elif self.mat3 == 'Au':
+            Eps3 = material.Au()
+        elif self.mat3 == 'Cr':
+            Eps3 = material.cr()
+
+        if self.nombreCouches == 3:
+            return Eps1, Eps2, Eps3
+
+        # ####
+
+        if self.mat4 == 'Air':
+            Eps4 = 1
+        elif self.mat4 == 'Eau':
+            Eps4 = material.h2o()
+        elif self.mat4 == 'Bk7':
+            Eps4 = material.bk7()
+        elif self.mat4 == 'SiO2':
+            Eps4 = material.SiO2()
+        elif self.mat4 == 'TiO2':
+            Eps4 = material.TiO2()
+        elif self.mat4 == 'Au':
+            Eps4 = material.Au()
+        elif self.mat4 == 'Cr':
+            Eps4 = material.cr()
+
+        if self.nombreCouches == 4:
+            return Eps1, Eps2, Eps3, Eps4
+
+        # ####
+
+        if self.mat5 == 'Air':
+            Eps5 = 1
+        elif self.mat5 == 'Eau':
+            Eps5 = material.h2o()
+        elif self.mat5 == 'Bk7':
+            Eps5 = material.bk7()
+        elif self.mat5 == 'SiO2':
+            Eps5 = material.SiO2()
+        elif self.mat5 == 'TiO2':
+            Eps5 = material.TiO2()
+        elif self.mat5 == 'Au':
+            Eps5 = material.Au()
+        elif self.mat5 == 'Cr':
+            Eps5 = material.cr()
+
+        if self.nombreCouches == 5:
+            return Eps1, Eps2, Eps3, Eps4, Eps5
+
+        ####
+
+        if self.mat6 == 'Air':
+            Eps6 = 1
+        elif self.mat6 == 'Eau':
+            Eps6 = material.h2o()
+        elif self.mat6 == 'Bk7':
+            Eps6 = material.bk7()
+        elif self.mat6 == 'SiO2':
+            Eps6 = material.SiO2()
+        elif self.mat6 == 'TiO2':
+            Eps6 = material.TiO2()
+        elif self.mat6 == 'Au':
+            Eps6 = material.Au()
+        elif self.mat6 == 'Cr':
+            Eps6 = material.cr()
+
+        if self.nombreCouches == 6:
+            return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6
+
+        ####
+
+        if self.mat7 == 'Air':
+            Eps7 = 1
+        elif self.mat7 == 'Eau':
+            Eps7 = material.h2o()
+        elif self.mat7 == 'Bk7':
+            Eps7 = material.bk7()
+        elif self.mat7 == 'SiO2':
+            Eps7 = material.SiO2()
+        elif self.mat7 == 'TiO2':
+            Eps7 = material.TiO2()
+        elif self.mat7 == 'Au':
+            Eps7 = material.Au()
+        elif self.mat7 == 'Cr':
+            Eps7 = material.cr()
+
+        if self.nombreCouches == 7:
+            return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7
+
+        ####
+
+        if self.mat8 == 'Air':
+            Eps8 = 1
+        elif self.mat8 == 'Eau':
+            Eps8 = material.h2o()
+        elif self.mat8 == 'Bk7':
+            Eps8 = material.bk7()
+        elif self.mat8 == 'SiO2':
+            Eps8 = material.SiO2()
+        elif self.mat8 == 'TiO2':
+            Eps8 = material.TiO2()
+        elif self.mat8 == 'Au':
+            Eps8 = material.Au()
+        elif self.mat8 == 'Cr':
+            Eps8 = material.cr()
+
+        if self.nombreCouches == 8:
+            return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8
+
+        ####
+
+        if self.mat9 == 'Air':
+            Eps9 = 1
+        elif self.mat9 == 'Eau':
+            Eps9 = material.h2o()
+        elif self.mat9 == 'Bk7':
+            Eps9 = material.bk7()
+        elif self.mat9 == 'SiO2':
+            Eps9 = material.SiO2()
+        elif self.mat9 == 'TiO2':
+            Eps9 = material.TiO2()
+        elif self.mat9 == 'Au':
+            Eps9 = material.Au()
+        elif self.mat9 == 'Cr':
+            Eps9 = material.cr()
+
+        if self.nombreCouches == 9:
+            return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9
+
+        ####
+
+        if self.mat10 == 'Air':
+            Eps10 = 1
+        elif self.mat10 == 'Eau':
+            Eps10 = material.h2o()
+        elif self.mat10 == 'Bk7':
+            Eps10 = material.bk7()
+        elif self.mat10 == 'SiO2':
+            Eps10 = material.SiO2()
+        elif self.mat10 == 'TiO2':
+            Eps10 = material.TiO2()
+        elif self.mat10 == 'Au':
+            Eps10 = material.Au()
+        elif self.mat10 == 'Cr':
+            Eps10 = material.cr()
+
+        if self.nombreCouches == 10:
+            return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10
+
+    def structure(self):
+        if self.nombreCouches == 1:
+            Eps1 = self.typemat()
+            self.Eps = np.array([Eps1],dtype=complex)
+            self.Mu = np.array([1])
+            self.Type = np.array([0])
+            self.hauteur = np.array([self.haut1])
+
+        elif self.nombreCouches == 2:
+            Eps1, Eps2 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2],dtype=complex)
+            self.Mu = np.array([1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2])
+            self.Type = np.array([0, 1])
+
+        elif self.nombreCouches == 3:
+            Eps1, Eps2, Eps3 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3])
+            self.Mu = np.array([1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3])
+            self.Type = np.array([0, 1, 2])
+
+        elif self.nombreCouches == 4:
+            Eps1, Eps2, Eps3, Eps4 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4])
+            self.Mu = np.array([1, 1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
+            self.Type = np.array([0, 1, 2, 3])
+
+        elif self.nombreCouches == 5:
+            Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5])
+            self.Mu = np.array([1, 1, 1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
+            self.Type = np.array([0, 1, 2, 3, 4])
+
+        elif self.nombreCouches == 6:
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6])
+            self.Mu = np.array([1, 1, 1, 1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
+            self.Type = np.array([0, 1, 2, 3, 4, 5])
+
+        elif self.nombreCouches == 7:
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7])
+            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1])
+            self.hauteur = np.array(
+                [self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6])
+
+        elif self.nombreCouches == 8:
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8])
+            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
+                                     self.haut8])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+
+        elif self.nombreCouches == 9:
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9])
+            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
+                                     self.haut8, self.haut9])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+
+        elif self.nombreCouches == 10:
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat()
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10])
+            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
+                                     self.haut8, self.haut9, self.haut10])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+    def cascade(self, A, B):
+        # On combine deux matrices de diffusion A et B en une seule matrice de diffusion (2*2) S
+        t = 1 / (1 - B[0, 0] * A[1, 1])
+        S = np.array([[A[0, 0] + A[0, 1] * B[0, 0] * A[1, 0] * t, A[0, 1] * B[0, 1] * t],
+                      [B[1, 0] * A[1, 0] * t, B[1, 1] + A[1, 1] * B[0, 1] * B[1, 0] * t]], dtype=complex)
+        return S
+
+    def coefficient(self, thetacoef, _lambda):
+
+        # On considère que la première valeur de la hauteur est 0
+        self.hauteur[0] = 0
+
+        # On definie k0 à partir de lambda
+        k0 = (2 * np.pi) / _lambda
+
+        # g est la longeur de Type
+        g = len(self.Type)
+
+
+
+        # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
+        if self.pol == 0:
+            f = self.Mu
+        else:
+            f = self.Eps
+
+        # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
+        alpha = np.sqrt(self.Eps[0] * self.Eps[0] * k0 * np.sin(thetacoef))
+        gamma = np.sqrt(self.Eps[self.Type] * self.Mu[self.Type] * k0 ** 2 - np.ones(g) * alpha ** 2)
+        # print("gamma=",gamma)
+
+        # On fait en sorte d'avoir un résultat positif en foction au cas où l'index serait négatif
+        if np.real(self.Eps[0]) < 0 and np.real(TypeMu[0]):
+            gamma[0] = -gamma[0]
+
+        # On modifie la détermination de la racine carrée pour obtenir un stabilité parfaite
+        if g > 2:
+            gamma[1: g - 2] = gamma[1:g - 2] * (1 - 2 * (np.imag(gamma[1:g - 2]) < 0))
+        # Condition de l'onde sortante pour le dernier milieu
+        if np.real(self.Eps[g - 1]) < 0 and np.real(self.Mu[g - 1]) < 0 and np.real(
+                np.sqrt(self.Eps[g - 1] * self.Mu * (k0 ** 2) - (alpha ** 2))):
+            gamma[g - 1] = -np.sqrt(self.Eps[g - 1] * self.Mu[g - 1] - (alpha ** 2))
+        else:
+            gamma[g - 1] = np.sqrt(self.Eps[g - 1] * self.Mu[g - 1] * (k0 ** 2) - (alpha ** 2))
+
+        # Définition de la matrice T
+        T = np.zeros((2 * g, 2, 2), dtype=complex)
+        T[0] = [[0, 1], [1, 0]]
+
+        # Cacul des matrices S
+        for k in range(g - 1):
+            # Matrice de diffusion des couches
+            t = np.exp(1j * gamma[k] * self.hauteur[k])
+            T[2 * k + 1] = np.array([[0, t], [t, 0]])
+
+            # Matrice de diffusion d'interface
+            b1 = gamma[k] / (f[k])
+            b2 = gamma[k + 1] / (f[k + 1])
+            T[2 * k + 2] = [[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)],
+                            [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]]
+
+        # Matrice de diffusion pour la dernière couche
+        t = np.exp(1j * gamma[g - 1] * self.hauteur[g - 1])
+        T[2 * g - 1] = [[0, t], [t, 0]]
+
+        A = np.zeros((2 * g - 1, 2, 2), dtype=complex)
+        A[0] = T[0]
+
+        for j in range(len(T) - 2):
+            A[j + 1] = self.cascade(A[j], T[j + 1])
+
+        # Coefficient de reflexion de l'ensemble de la structure
+        r = A[len(A) - 1][0, 0]
+
+        # Coefficient de transmission de l'ensemble de la structure
+        tr = A[len(A) - 1][1, 0]
+
+        # Coefficient de réflexion de l'énergie
+        Re = np.abs(r) ** 2
+
+        # Coefficient de transmission de l'énergie
+        Tr = (np.abs(tr) ** 2) * gamma[g - 1] * f[0] / (gamma[0] * f[g - 1])
+
+        return r, tr, Re, Tr
+
+    def affichageCoef(self):
+        angle = widget.angleCoefGen()
+        longueurOnde = widget.lambdaCoefGen()
+        reflexionT, transmissionT, reflexionE, transmissionE = self.coefficient(angle, longueurOnde)
+
+        st.write("Coefficient de reflexion de l'ensemble de la structure :", reflexionT)
+        st.write("Coefficient de transmission de l'ensemble de la structure :", transmissionT)
+        st.write("Coefficient de reflexion de l'énergie :", reflexionE)
+        st.write("Coefficient de transmission de l'énergie :", transmissionE)
+
+    def show(self):
+        print(self.Eps)
+        if self.nombreCouches == 1:
+            esp1show = self.typemat()
+            st.write(self.mat1)
+            st.write(self.haut1)
+
+            st.write(esp1show)
+        elif self.nombreCouches == 2:
+            esp1show, eps2show = self.typemat()
+            st.write(self.mat1)
+            st.write(esp1show)
+            st.write(self.haut1)
+            st.write(self.mat2)
+            st.write(eps2show)
+            st.write(self.haut2)
+
 
 
 # Haut de la page
@@ -1169,7 +1721,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen1(self):
-        n = st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7"), key=1)
+        n = st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=1)
         return n
 
     def hauteurGen1(self):
@@ -1177,7 +1729,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen2(self):
-        n = st.selectbox("Choix du matériau 2", ("Air", "Eau", "Bk7"), key=2)
+        n = st.selectbox("Choix du matériau 2", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=2)
         return n
 
     def hauteurGen2(self):
@@ -1185,7 +1737,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen3(self):
-        n = st.selectbox("Choix du matériau 3", ("Air", "Eau", "Bk7"), key=3)
+        n = st.selectbox("Choix du matériau 3", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=3)
         return n
 
     def hauteurGen3(self):
@@ -1193,7 +1745,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen4(self):
-        n = st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7"), key=4)
+        n = st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=4)
         return n
 
     def hauteurGen4(self):
@@ -1201,7 +1753,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen5(self):
-        n = st.selectbox("Choix du matériau 5", ("Air", "Eau", "Bk7"), key=5)
+        n = st.selectbox("Choix du matériau 5", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=5)
         return n
 
     def hauteurGen5(self):
@@ -1209,7 +1761,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen6(self):
-        n = st.selectbox("Choix du matériau 6", ("Air", "Eau", "Bk7"), key=6)
+        n = st.selectbox("Choix du matériau 6", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=6)
         return n
 
     def hauteurGen6(self):
@@ -1217,7 +1769,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen7(self):
-        n = st.selectbox("Choix du matériau 7", ("Air", "Eau", "Bk7"), key=7)
+        n = st.selectbox("Choix du matériau 7", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=7)
         return n
 
     def hauteurGen7(self):
@@ -1225,7 +1777,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen8(self):
-        n = st.selectbox("Choix du matériau 8", ("Air", "Eau", "Bk7"), key=8)
+        n = st.selectbox("Choix du matériau 8", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=8)
         return n
 
     def hauteurGen8(self):
@@ -1233,7 +1785,7 @@ class sidebarWidget:
         return n
 
     def selecBoxGen9(self):
-        n = st.selectbox("Choix du matériau 9", ("Air", "Eau", "Bk7"), key=9)
+        n = st.selectbox("Choix du matériau 9", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=9)
         return n
 
     def hauteurGen9(self):
@@ -1241,11 +1793,19 @@ class sidebarWidget:
         return n
 
     def selecBoxGen10(self):
-        n = st.selectbox("Choix du matériau 10", ("Air", "Eau", "Bk7"), key=10)
+        n = st.selectbox("Choix du matériau 10", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=10)
         return n
 
     def hauteurGen10(self):
         n = st.number_input("Epaisseur du matériau 10", 1, 20000, 400, 1, key=10)
+        return n
+
+    def angleCoefGen(self):
+        n = st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=4)
+        return n
+
+    def lambdaCoefGen(self):
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=5)
         return n
 
 
@@ -1260,140 +1820,12 @@ def genmoosh():
     with st.sidebar.beta_expander('Structure'):
         ####
         strucSlider = widget.struslider()
+        gen = mooshGen(strucSlider)
+        gen.structure()
+    gen.show()
 
-        if strucSlider == 1:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-
-        elif strucSlider == 2:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-
-        elif strucSlider == 3:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-
-
-        elif strucSlider == 4:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-
-        elif strucSlider == 5:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-            strucMat5 = widget.selecBoxGen5()
-            hautMat5 = widget.hauteurGen5()
-
-        elif strucSlider == 6:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-            strucMat5 = widget.selecBoxGen5()
-            hautMat5 = widget.hauteurGen5()
-            strucMat6 = widget.selecBoxGen6()
-            hautMat6 = widget.hauteurGen6()
-
-        elif strucSlider == 7:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-            strucMat5 = widget.selecBoxGen5()
-            hautMat5 = widget.hauteurGen5()
-            strucMat6 = widget.selecBoxGen6()
-            hautMat6 = widget.hauteurGen6()
-            strucMat7 = widget.selecBoxGen7()
-            hautMat7 = widget.hauteurGen7()
-
-        elif strucSlider == 8:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-            strucMat5 = widget.selecBoxGen5()
-            hautMat5 = widget.hauteurGen5()
-            strucMat6 = widget.selecBoxGen6()
-            hautMat6 = widget.hauteurGen6()
-            strucMat7 = widget.selecBoxGen7()
-            hautMat7 = widget.hauteurGen7()
-            strucMat8 = widget.selecBoxGen8()
-            hautMat8 = widget.hauteurGen8()
-
-        elif strucSlider == 9:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-            strucMat5 = widget.selecBoxGen5()
-            hautMat5 = widget.hauteurGen5()
-            strucMat6 = widget.selecBoxGen6()
-            hautMat6 = widget.hauteurGen6()
-            strucMat7 = widget.selecBoxGen7()
-            hautMat7 = widget.hauteurGen7()
-            strucMat8 = widget.selecBoxGen8()
-            hautMat8 = widget.hauteurGen8()
-            strucMat9 = widget.selecBoxGen9()
-            hautMat9 = widget.hauteurGen9()
-
-        elif strucSlider == 10:
-            strucMat1 = widget.selecBoxGen1()
-            hautMat1 = widget.hauteurGen1()
-            strucMat2 = widget.selecBoxGen2()
-            hautMat2 = widget.hauteurGen2()
-            strucMat3 = widget.selecBoxGen3()
-            hautMat3 = widget.hauteurGen3()
-            strucMat4 = widget.selecBoxGen4()
-            hautMat4 = widget.hauteurGen4()
-            strucMat5 = widget.selecBoxGen5()
-            hautMat5 = widget.hauteurGen5()
-            strucMat6 = widget.selecBoxGen6()
-            hautMat6 = widget.hauteurGen6()
-            strucMat7 = widget.selecBoxGen7()
-            hautMat7 = widget.hauteurGen7()
-            strucMat8 = widget.selecBoxGen8()
-            hautMat8 = widget.hauteurGen8()
-            strucMat9 = widget.selecBoxGen9()
-            hautMat9 = widget.hauteurGen9()
-            strucMat10 = widget.selecBoxGen10()
-            hautMat10 = widget.hauteurGen10()
-            
     with st.sidebar.beta_expander('Coefficients'):
-        c = 0
+        gen.affichageCoef()
 
     with st.sidebar.beta_expander('Angular'):
         a = 0
@@ -1499,5 +1931,6 @@ elif side_menu_navigation == 'Exemples':
     exmoosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
+
 
 
