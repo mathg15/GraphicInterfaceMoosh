@@ -1115,148 +1115,203 @@ class mat:
 
 class mooshGen:
 
-    def __init__(self, nbCouche):
+    def __init__(self, nbCouche, _lambda_):
         self.nombreCouches = nbCouche
         self.pol = 1
-        self.lambda_ = 600
+        self.lambda_ = _lambda_
         self.Eps = np.array([])
-
 
         self.Mu = np.array([])
         self.Type = np.array([])
         self.hauteur = np.array([])
 
         if self.nombreCouches == 1:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
 
         elif self.nombreCouches == 2:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
 
         elif self.nombreCouches == 3:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
 
         elif self.nombreCouches == 4:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
 
         elif self.nombreCouches == 5:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
+            st.write("Couche 5")
             self.mat5 = widget.selecBoxGen5()
             self.haut5 = widget.hauteurGen5()
 
         elif self.nombreCouches == 6:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
+            st.write("Couche 5")
             self.mat5 = widget.selecBoxGen5()
             self.haut5 = widget.hauteurGen5()
+            st.write("Couche 6")
             self.mat6 = widget.selecBoxGen6()
             self.haut6 = widget.hauteurGen6()
 
         elif self.nombreCouches == 7:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
+            st.write("Couche 5")
             self.mat5 = widget.selecBoxGen5()
             self.haut5 = widget.hauteurGen5()
+            st.write("Couche 6")
             self.mat6 = widget.selecBoxGen6()
             self.haut6 = widget.hauteurGen6()
+            st.write("Couche 7")
             self.mat7 = widget.selecBoxGen7()
             self.haut7 = widget.hauteurGen7()
 
         elif self.nombreCouches == 8:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
+            st.write("Couche 5")
             self.mat5 = widget.selecBoxGen5()
             self.haut5 = widget.hauteurGen5()
+            st.write("Couche 6")
             self.mat6 = widget.selecBoxGen6()
             self.haut6 = widget.hauteurGen6()
+            st.write("Couche 7")
             self.mat7 = widget.selecBoxGen7()
             self.haut7 = widget.hauteurGen7()
+            st.write("Couche 8")
             self.mat8 = widget.selecBoxGen8()
             self.haut8 = widget.hauteurGen8()
 
         elif self.nombreCouches == 9:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
+            st.write("Couche 5")
             self.mat5 = widget.selecBoxGen5()
             self.haut5 = widget.hauteurGen5()
+            st.write("Couche 6")
             self.mat6 = widget.selecBoxGen6()
             self.haut6 = widget.hauteurGen6()
+            st.write("Couche 7")
             self.mat7 = widget.selecBoxGen7()
             self.haut7 = widget.hauteurGen7()
+            st.write("Couche 8")
             self.mat8 = widget.selecBoxGen8()
             self.haut8 = widget.hauteurGen8()
+            st.write("Couche 9")
             self.mat9 = widget.selecBoxGen9()
             self.haut9 = widget.hauteurGen9()
 
         elif self.nombreCouches == 10:
+            st.write("Couche 1")
             self.mat1 = widget.selecBoxGen1()
             self.haut1 = widget.hauteurGen1()
+            st.write("Couche 2")
             self.mat2 = widget.selecBoxGen2()
             self.haut2 = widget.hauteurGen2()
+            st.write("Couche 3")
             self.mat3 = widget.selecBoxGen3()
             self.haut3 = widget.hauteurGen3()
+            st.write("Couche 4")
             self.mat4 = widget.selecBoxGen4()
             self.haut4 = widget.hauteurGen4()
+            st.write("Couche 5")
             self.mat5 = widget.selecBoxGen5()
             self.haut5 = widget.hauteurGen5()
+            st.write("Couche 6")
             self.mat6 = widget.selecBoxGen6()
             self.haut6 = widget.hauteurGen6()
+            st.write("Couche 7")
             self.mat7 = widget.selecBoxGen7()
             self.haut7 = widget.hauteurGen7()
+            st.write("Couche 8")
             self.mat8 = widget.selecBoxGen8()
             self.haut8 = widget.hauteurGen8()
+            st.write("Couche 9")
             self.mat9 = widget.selecBoxGen9()
             self.haut9 = widget.hauteurGen9()
+            st.write("Couche 10")
             self.mat10 = widget.selecBoxGen10()
             self.haut10 = widget.hauteurGen10()
 
     def typemat(self):
+
 
 
         m = mat(600)
@@ -1470,49 +1525,49 @@ class mooshGen:
     def structure(self):
         if self.nombreCouches == 1:
             Eps1 = self.typemat()
-            self.Eps = np.array([Eps1],dtype=complex)
+            self.Eps = np.array([Eps1], dtype=complex)
             self.Mu = np.array([1])
             self.Type = np.array([0])
             self.hauteur = np.array([self.haut1])
 
         elif self.nombreCouches == 2:
             Eps1, Eps2 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2], dtype=complex)
             self.Mu = np.array([1, 1])
             self.hauteur = np.array([self.haut1, self.haut2])
             self.Type = np.array([0, 1])
 
         elif self.nombreCouches == 3:
             Eps1, Eps2, Eps3 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3], dtype=complex)
             self.Mu = np.array([1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3])
             self.Type = np.array([0, 1, 2])
 
         elif self.nombreCouches == 4:
             Eps1, Eps2, Eps3, Eps4 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
             self.Type = np.array([0, 1, 2, 3])
 
         elif self.nombreCouches == 5:
             Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
             self.Type = np.array([0, 1, 2, 3, 4])
 
         elif self.nombreCouches == 6:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
             self.Type = np.array([0, 1, 2, 3, 4, 5])
 
         elif self.nombreCouches == 7:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array(
                 [self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7])
@@ -1520,7 +1575,7 @@ class mooshGen:
 
         elif self.nombreCouches == 8:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8])
@@ -1528,7 +1583,7 @@ class mooshGen:
 
         elif self.nombreCouches == 9:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9])
@@ -1536,7 +1591,7 @@ class mooshGen:
 
         elif self.nombreCouches == 10:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10],dtype=complex)
+            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9, self.haut10])
@@ -1559,8 +1614,6 @@ class mooshGen:
 
         # g est la longeur de Type
         g = len(self.Type)
-
-
 
         # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
         if self.pol == 0:
@@ -1627,9 +1680,8 @@ class mooshGen:
 
         return r, tr, Re, Tr
 
-    def affichageCoef(self):
-        angle = widget.angleCoefGen()
-        longueurOnde = widget.lambdaCoefGen()
+    def affichageCoef(self,angle,longueurOnde):
+
         reflexionT, transmissionT, reflexionE, transmissionE = self.coefficient(angle, longueurOnde)
 
         st.write("Coefficient de reflexion de l'ensemble de la structure :", reflexionT)
@@ -1668,23 +1720,33 @@ class mooshGen:
         plt.tight_layout()
         st.pyplot(plt)
 
-    # def show(self):
-    #     print(self.Eps)
-    #     if self.nombreCouches == 1:
-    #         esp1show = self.typemat()
-    #         st.write(self.mat1)
-    #         st.write(self.haut1)
-    #
-    #         st.write(esp1show)
-    #     elif self.nombreCouches == 2:
-    #         esp1show, eps2show = self.typemat()
-    #         st.write(self.mat1)
-    #         st.write(esp1show)
-    #         st.write(self.haut1)
-    #         st.write(self.mat2)
-    #         st.write(eps2show)
-    #         st.write(self.haut2)
+    def spectrum(self, theta_):
+        minLambda = 400
+        maxLambda = 800
+        rangeLambda = np.linspace(minLambda, maxLambda, 200)
 
+        a = np.ones((200, 1), dtype=complex)
+        b = np.ones((200, 1), dtype=complex)
+        c = np.ones((200, 1), dtype=complex)
+        d = np.ones((200, 1), dtype=complex)
+
+        for i in range(200):
+            rL = rangeLambda[i]
+            a[i], b[i], c[i], d[i] = self.coefficient(theta_, rL)
+
+        plt.figure(1)
+        plt.subplot(211)
+        plt.title("Reflexion for lambda ")
+        plt.plot(rangeLambda, abs(c))
+        plt.ylabel("Reflexion")
+        plt.xlabel("Angle (degrees)")
+        plt.subplot(212)
+        plt.plot(rangeLambda, np.angle(a))
+        plt.ylabel("Phase")
+        plt.xlabel("Angle")
+        plt.title("Phase of the reflection coefficient")
+        plt.tight_layout()
+        st.pyplot(plt)
 
 
 # Haut de la page
@@ -1839,6 +1901,21 @@ class sidebarWidget:
         n = st.button("Afficher Angular")
         return n
 
+    def thetaSpecGen(self):
+        n = st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=5)
+        return n
+
+    def btnSpecGen(self):
+        n = st.button("Afficher Spectrum")
+        return n
+
+    def btnCoefGen(self):
+        n = st.button("Afficher les coefficients")
+        return n
+
+    def PermiSetGen(self):
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=7)
+        return n
 
 def homepage():
     st.write("Homepage")
@@ -1850,15 +1927,32 @@ def genmoosh():
     st.write("Structure")
     with st.sidebar.beta_expander('Structure'):
         ####
+        st.markdown(" ## Sélection du nombre de couche de la structure")
         strucSlider = widget.struslider()
-        gen = mooshGen(strucSlider)
+        st.markdown(" ## Définition de la longueur d'onde pour la permittivité des matériaux")
+        permSet = widget.PermiSetGen()
+        st.markdown(" ## Choix des matériaux de la structure")
+        gen = mooshGen(strucSlider, permSet)
         gen.structure()
-    # gen.show()
+
 
     with st.sidebar.beta_expander('Coefficients'):
-        gen.affichageCoef()
+        st.markdown("## Coefficients de réflexion et de transmittance de la structure")
+        st.write("Définition de la longeur d'onde")
+        coefLambGen = widget.lambdaCoefGen()
+        st.write("Définition de l'angle")
+        coefAngGen = widget.angleCoefGen()
+
+        btnCoefGen = widget.btnCoefGen()
+
+
+
+    if btnCoefGen == 1:
+        gen.affichageCoef(coefAngGen,coefLambGen)
 
     with st.sidebar.beta_expander('Angular'):
+        st.markdown("## Coefficient de réflexion en fonction de l'angle")
+        st.write("Définition d'une longeur d'onde constante")
         angLambGen = widget.lambAngGen()
         btnAngGen = widget.btnAngGen()
 
@@ -1866,7 +1960,13 @@ def genmoosh():
         gen.angular(angLambGen)
 
     with st.sidebar.beta_expander('Spectrum'):
-        s = 0
+        st.markdown("## Coefficient de réflexion en fonction de la longueur d'onde")
+        st.write("Définition d'un angle constant")
+        specAngGen = widget.thetaSpecGen()
+        btnSpecGen = widget.btnSpecGen()
+
+    if btnSpecGen == 1:
+        gen.spectrum(specAngGen)
 
     with st.sidebar.beta_expander('Beam'):
         b = 0
