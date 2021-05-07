@@ -1120,16 +1120,7 @@ class mooshGen:
         self.pol = 1
         self.lambda_ = 600
         self.Eps = np.array([])
-        # self.Eps1 = 1
-        # self.Eps2 = 1
-        # self.Eps3 = 1
-        # self.Eps4 = 1
-        # self.Eps5 = 1
-        # self.Eps6 = 1
-        # self.Eps7 = 1
-        # self.Eps8 = 1
-        # self.Eps9 = 1
-        # self.Eps10 = 1
+
 
         self.Mu = np.array([])
         self.Type = np.array([])
@@ -1267,6 +1258,7 @@ class mooshGen:
 
     def typemat(self):
 
+
         m = mat(600)
         epsbk7 = m.bk7()
         epsCr = m.cr()
@@ -1335,7 +1327,7 @@ class mooshGen:
         if self.nombreCouches == 3:
             return Eps1, Eps2, Eps3
 
-        # ####
+        ####
 
         if self.mat4 == 'Air':
             Eps4 = 1
@@ -1355,7 +1347,7 @@ class mooshGen:
         if self.nombreCouches == 4:
             return Eps1, Eps2, Eps3, Eps4
 
-        # ####
+        ####
 
         if self.mat5 == 'Air':
             Eps5 = 1
@@ -1645,6 +1637,37 @@ class mooshGen:
         st.write("Coefficient de reflexion de l'énergie :", reflexionE)
         st.write("Coefficient de transmission de l'énergie :", transmissionE)
 
+    def angular(self, lambda_):
+
+        # Intervalle angulaire
+        maxAngle = 89
+        minAngle = 0
+        rangeAngle = np.linspace(minAngle, maxAngle, 200)
+
+        # Création des matrices
+        a = np.ones((200, 1), dtype=complex)
+        b = np.ones((200, 1), dtype=complex)
+        c = np.ones((200, 1), dtype=complex)
+        d = np.ones((200, 1), dtype=complex)
+
+        for i in range(200):
+            tht = rangeAngle[i]
+            a[i], b[i], c[i], d[i] = self.coefficient(tht, lambda_)
+
+        plt.figure(1)
+        plt.subplot(211)
+        plt.title("Reflexion for lambda")
+        plt.plot(rangeAngle, abs(c))
+        plt.ylabel("Reflexion")
+        plt.xlabel("Angle (degrees)")
+        plt.subplot(212)
+        plt.plot(rangeAngle, np.angle(a))
+        plt.ylabel("Phase")
+        plt.xlabel("Angle")
+        plt.title("Phase of the Reflexion coefficient")
+        plt.tight_layout()
+        st.pyplot(plt)
+
     # def show(self):
     #     print(self.Eps)
     #     if self.nombreCouches == 1:
@@ -1808,6 +1831,14 @@ class sidebarWidget:
         n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=5)
         return n
 
+    def lambAngGen(self):
+        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=6)
+        return n
+
+    def btnAngGen(self):
+        n = st.button("Afficher Angular")
+        return n
+
 
 def homepage():
     st.write("Homepage")
@@ -1828,7 +1859,11 @@ def genmoosh():
         gen.affichageCoef()
 
     with st.sidebar.beta_expander('Angular'):
-        a = 0
+        angLambGen = widget.lambAngGen()
+        btnAngGen = widget.btnAngGen()
+
+    if btnAngGen == 1:
+        gen.angular(angLambGen)
 
     with st.sidebar.beta_expander('Spectrum'):
         s = 0
