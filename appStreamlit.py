@@ -1622,7 +1622,7 @@ class mooshGen:
             f = self.Eps
 
         # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
-        alpha = np.sqrt(self.Eps[0] * self.Eps[0] * k0 * np.sin(thetacoef))
+        alpha = np.sqrt(self.Eps[0] * self.Eps[0] * k0 * np.sin(thetacoef * (np.pi / 180)))
         gamma = np.sqrt(self.Eps[self.Type] * self.Mu[self.Type] * k0 ** 2 - np.ones(g) * alpha ** 2)
         # print("gamma=",gamma)
 
