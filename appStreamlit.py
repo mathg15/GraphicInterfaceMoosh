@@ -159,7 +159,7 @@ class Bragg:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion ")
+        plt.title("Reflexion for lambda = 600 nm")
         plt.plot(rangeAngle, abs(c))
         plt.ylabel("Reflexion")
         plt.xlabel("Angle (degrees)")
@@ -1119,10 +1119,10 @@ class mooshGen:
         self.nombreCouches = nbCouche
         self.pol = 1
         self.lambda_ = _lambda_
-        self.Eps = np.array([])
+        self.Eps = np.array([],dtype=complex)
 
-        self.Mu = np.array([])
-        self.Type = np.array([])
+        self.Mu = np.array([],dtype=complex)
+        self.Type = np.array([],dtype=complex)
         self.hauteur = np.array([])
 
         if self.nombreCouches == 1:
@@ -1527,7 +1527,7 @@ class mooshGen:
             Eps1 = self.typemat()
             self.Eps = np.array([Eps1], dtype=complex)
             self.Mu = np.array([1])
-            self.Type = np.array([0])
+            self.Type = np.array([0],dtype=complex)
             self.hauteur = np.array([self.haut1])
 
         elif self.nombreCouches == 2:
@@ -1535,35 +1535,35 @@ class mooshGen:
             self.Eps = np.array([Eps1, Eps2], dtype=complex)
             self.Mu = np.array([1, 1])
             self.hauteur = np.array([self.haut1, self.haut2])
-            self.Type = np.array([0, 1])
+            self.Type = np.array([0, 1],dtype=complex)
 
         elif self.nombreCouches == 3:
             Eps1, Eps2, Eps3 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3], dtype=complex)
             self.Mu = np.array([1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3])
-            self.Type = np.array([0, 1, 2])
+            self.Type = np.array([0, 1, 2],dtype=complex)
 
         elif self.nombreCouches == 4:
             Eps1, Eps2, Eps3, Eps4 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3, Eps4], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
-            self.Type = np.array([0, 1, 2, 3])
+            self.Type = np.array([0, 1, 2, 3],dtype=complex)
 
         elif self.nombreCouches == 5:
             Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
-            self.Type = np.array([0, 1, 2, 3, 4])
+            self.Type = np.array([0, 1, 2, 3, 4],dtype=complex)
 
         elif self.nombreCouches == 6:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
-            self.Type = np.array([0, 1, 2, 3, 4, 5])
+            self.Type = np.array([0, 1, 2, 3, 4, 5],dtype=complex)
 
         elif self.nombreCouches == 7:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat()
@@ -1571,7 +1571,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array(
                 [self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6],dtype=complex)
 
         elif self.nombreCouches == 8:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat()
@@ -1579,7 +1579,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7],dtype=complex)
 
         elif self.nombreCouches == 9:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat()
@@ -1587,7 +1587,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8],dtype=complex)
 
         elif self.nombreCouches == 10:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat()
@@ -1595,7 +1595,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9, self.haut10])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9],dtype=complex)
 
     def cascade(self, A, B):
         # On combine deux matrices de diffusion A et B en une seule matrice de diffusion (2*2) S
@@ -1606,6 +1606,28 @@ class mooshGen:
 
     def coefficient(self, thetacoef, _lambda):
 
+        if self.nombreCouches == 1:
+            rc = 0
+        elif self.nombreCouches == 2:
+            rc = 1
+        elif self.nombreCouches == 3:
+            rc = 2
+        elif self.nombreCouches == 4:
+            rc = 3
+        elif self.nombreCouches == 5:
+            rc = 4
+        elif self.nombreCouches == 6:
+            rc = 5
+        elif self.nombreCouches == 7:
+            rc = 6
+        elif self.nombreCouches == 8:
+            rc = 7
+        elif self.nombreCouches == 9:
+            rc = 8
+        elif self.nombreCouches == 10:
+            rc = 9
+
+        RangeType = rc
         # On considère que la première valeur de la hauteur est 0
         self.hauteur[0] = 0
 
@@ -1615,30 +1637,40 @@ class mooshGen:
         # g est la longeur de Type
         g = len(self.Type)
 
+        # On définie deux array comme des copies de Type
+
+        TypeEps = np.copy(self.Type)
+        TypeMu = np.copy(self.Type)
+
+        # On implémente les valeurs de la permittivité et de la perméabilité dans type pour définir le matériau
+        for i in range(RangeType, -1, -1):
+            TypeEps[TypeEps == i] = self.Eps[i]
+            TypeMu[TypeMu == i] = self.Mu[i]
+
         # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
-        if self.pol == 0:
-            f = self.Mu
-        else:
-            f = self.Eps
+        # if self.pol == 0:
+        #     f = TypeMu
+        # else:
+        f = TypeEps
 
         # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
-        alpha = np.sqrt(self.Eps[0] * self.Eps[0] * k0 * np.sin(thetacoef * (np.pi / 180)))
-        gamma = np.sqrt(self.Eps[self.Type] * self.Mu[self.Type] * k0 ** 2 - np.ones(g) * alpha ** 2)
+        alpha = np.sqrt(TypeEps[0] * TypeMu[0]) * k0 * np.sin(thetacoef * (np.pi / 180))
+        gamma = np.sqrt(TypeEps * TypeMu * (k0 ** 2) - np.ones(g) * (alpha ** 2))
         # print("gamma=",gamma)
 
         # On fait en sorte d'avoir un résultat positif en foction au cas où l'index serait négatif
-        if np.real(self.Eps[0]) < 0 and np.real(TypeMu[0]):
+        if np.real(TypeEps[0]) < 0 and np.real(TypeMu[0]):
             gamma[0] = -gamma[0]
 
         # On modifie la détermination de la racine carrée pour obtenir un stabilité parfaite
         if g > 2:
             gamma[1: g - 2] = gamma[1:g - 2] * (1 - 2 * (np.imag(gamma[1:g - 2]) < 0))
         # Condition de l'onde sortante pour le dernier milieu
-        if np.real(self.Eps[g - 1]) < 0 and np.real(self.Mu[g - 1]) < 0 and np.real(
-                np.sqrt(self.Eps[g - 1] * self.Mu * (k0 ** 2) - (alpha ** 2))):
-            gamma[g - 1] = -np.sqrt(self.Eps[g - 1] * self.Mu[g - 1] - (alpha ** 2))
+        if np.real(TypeEps[g - 1]) < 0 and np.real(TypeMu[g - 1]) < 0 and np.real(
+                np.sqrt(TypeEps[g - 1] * TypeMu * (k0 ** 2) - (alpha ** 2))):
+            gamma[g - 1] = -np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] - (alpha ** 2))
         else:
-            gamma[g - 1] = np.sqrt(self.Eps[g - 1] * self.Mu[g - 1] * (k0 ** 2) - (alpha ** 2))
+            gamma[g - 1] = np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] * (k0 ** 2) - (alpha ** 2))
 
         # Définition de la matrice T
         T = np.zeros((2 * g, 2, 2), dtype=complex)
