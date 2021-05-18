@@ -1115,15 +1115,22 @@ class mat:
 
 class mooshGen:
 
-    def __init__(self, nbCouche, _lambda_):
+    def __init__(self, nbCouche, _lambda_, pol):
         self.nombreCouches = nbCouche
-        self.pol = 1
-        self.lambda_ = _lambda_
-        self.Eps = np.array([],dtype=complex)
 
-        self.Mu = np.array([],dtype=complex)
-        self.Type = np.array([],dtype=complex)
+        self.lambda_ = _lambda_
+        self.Eps = np.array([], dtype=complex)
+
+        self.Mu = np.array([], dtype=complex)
+        self.Type = np.array([], dtype=complex)
         self.hauteur = np.array([])
+
+        if pol == "Polarisation TE":
+            polW = 1
+        elif pol == "Polarisation TM":
+            polW = 0
+
+        self.pol = polW
 
         if self.nombreCouches == 1:
             st.write("Couche 1")
@@ -1311,8 +1318,6 @@ class mooshGen:
             self.haut10 = widget.hauteurGen10()
 
     def typemat(self):
-
-
 
         m = mat(600)
         epsbk7 = m.bk7()
@@ -1527,7 +1532,7 @@ class mooshGen:
             Eps1 = self.typemat()
             self.Eps = np.array([Eps1], dtype=complex)
             self.Mu = np.array([1])
-            self.Type = np.array([0],dtype=complex)
+            self.Type = np.array([0], dtype=complex)
             self.hauteur = np.array([self.haut1])
 
         elif self.nombreCouches == 2:
@@ -1535,35 +1540,35 @@ class mooshGen:
             self.Eps = np.array([Eps1, Eps2], dtype=complex)
             self.Mu = np.array([1, 1])
             self.hauteur = np.array([self.haut1, self.haut2])
-            self.Type = np.array([0, 1],dtype=complex)
+            self.Type = np.array([0, 1], dtype=complex)
 
         elif self.nombreCouches == 3:
             Eps1, Eps2, Eps3 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3], dtype=complex)
             self.Mu = np.array([1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3])
-            self.Type = np.array([0, 1, 2],dtype=complex)
+            self.Type = np.array([0, 1, 2], dtype=complex)
 
         elif self.nombreCouches == 4:
             Eps1, Eps2, Eps3, Eps4 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3, Eps4], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
-            self.Type = np.array([0, 1, 2, 3],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3], dtype=complex)
 
         elif self.nombreCouches == 5:
             Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
-            self.Type = np.array([0, 1, 2, 3, 4],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3, 4], dtype=complex)
 
         elif self.nombreCouches == 6:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat()
             self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6], dtype=complex)
             self.Mu = np.array([1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
-            self.Type = np.array([0, 1, 2, 3, 4, 5],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3, 4, 5], dtype=complex)
 
         elif self.nombreCouches == 7:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat()
@@ -1571,7 +1576,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array(
                 [self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6], dtype=complex)
 
         elif self.nombreCouches == 8:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat()
@@ -1579,7 +1584,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7], dtype=complex)
 
         elif self.nombreCouches == 9:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat()
@@ -1587,7 +1592,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8], dtype=complex)
 
         elif self.nombreCouches == 10:
             Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat()
@@ -1595,7 +1600,7 @@ class mooshGen:
             self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
             self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
                                      self.haut8, self.haut9, self.haut10])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9],dtype=complex)
+            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=complex)
 
     def cascade(self, A, B):
         # On combine deux matrices de diffusion A et B en une seule matrice de diffusion (2*2) S
@@ -1629,7 +1634,7 @@ class mooshGen:
 
         RangeType = rc
         # On considère que la première valeur de la hauteur est 0
-        self.hauteur[0] = 0
+        # self.hauteur[0] = 0
 
         # On definie k0 à partir de lambda
         k0 = (2 * np.pi) / _lambda
@@ -1648,10 +1653,10 @@ class mooshGen:
             TypeMu[TypeMu == i] = self.Mu[i]
 
         # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
-        # if self.pol == 0:
-        #     f = TypeMu
-        # else:
-        f = TypeEps
+        if self.pol == 0:
+            f = TypeMu
+        else:
+            f = TypeEps
 
         # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
         alpha = np.sqrt(TypeEps[0] * TypeMu[0]) * k0 * np.sin(thetacoef * (np.pi / 180))
@@ -1712,7 +1717,7 @@ class mooshGen:
 
         return r, tr, Re, Tr
 
-    def affichageCoef(self,angle,longueurOnde):
+    def affichageCoef(self, angle, longueurOnde):
 
         reflexionT, transmissionT, reflexionE, transmissionE = self.coefficient(angle, longueurOnde)
 
@@ -1949,6 +1954,10 @@ class sidebarWidget:
         n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=7)
         return n
 
+    def multiSelectPolaGen(self):
+        return st.selectbox("Polarisation", ["Polarisation TE", "Polarisation TM"])
+
+
 def homepage():
     st.write("Homepage")
     st.text('Work in progress')
@@ -1959,14 +1968,15 @@ def genmoosh():
     st.write("Structure")
     with st.sidebar.beta_expander('Structure'):
         ####
-        st.markdown(" ## Sélection du nombre de couche de la structure")
+        st.markdown(" ## Sélection du nombre de couche de la structure et de la polarisation")
         strucSlider = widget.struslider()
+        pol = widget.multiSelectPolaGen()
+
         st.markdown(" ## Définition de la longueur d'onde pour la permittivité des matériaux")
         permSet = widget.PermiSetGen()
         st.markdown(" ## Choix des matériaux de la structure")
-        gen = mooshGen(strucSlider, permSet)
+        gen = mooshGen(strucSlider, permSet, pol)
         gen.structure()
-
 
     with st.sidebar.beta_expander('Coefficients'):
         st.markdown("## Coefficients de réflexion et de transmittance de la structure")
@@ -1977,10 +1987,8 @@ def genmoosh():
 
         btnCoefGen = widget.btnCoefGen()
 
-
-
     if btnCoefGen == 1:
-        gen.affichageCoef(coefAngGen,coefLambGen)
+        gen.affichageCoef(coefAngGen, coefLambGen)
 
     with st.sidebar.beta_expander('Angular'):
         st.markdown("## Coefficient de réflexion en fonction de l'angle")
@@ -2098,3 +2106,4 @@ elif side_menu_navigation == 'Exemples':
     exmoosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
+
