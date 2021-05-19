@@ -1115,10 +1115,9 @@ class mat:
 
 class mooshGen:
 
-    def __init__(self, nbCouche, _lambda_, pol):
+    def __init__(self, nbCouche, pol):
         self.nombreCouches = nbCouche
 
-        self.lambda_ = _lambda_
         self.Eps = np.array([], dtype=complex)
 
         self.Mu = np.array([], dtype=complex)
@@ -1317,9 +1316,9 @@ class mooshGen:
             self.mat10 = widget.selecBoxGen10()
             self.haut10 = widget.hauteurGen10()
 
-    def typemat(self):
+    def typemat(self, lam):
 
-        m = mat(600)
+        m = mat(lam)
         epsbk7 = m.bk7()
         epsCr = m.cr()
         epsAu = m.Au()
@@ -1494,7 +1493,7 @@ class mooshGen:
         elif self.mat9 == 'Eau':
             Eps9 = epsH2O
         elif self.mat9 == 'Bk7':
-            Eps9 == epsbk7
+            Eps9 = epsbk7
         elif self.mat9 == 'SiO2':
             Eps9 = epsSiO2
         elif self.mat9 == 'TiO2':
@@ -1527,80 +1526,90 @@ class mooshGen:
         if self.nombreCouches == 10:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10
 
-    def structure(self):
+    def structure(self, lam):
         if self.nombreCouches == 1:
-            Eps1 = self.typemat()
-            self.Eps = np.array([Eps1], dtype=complex)
-            self.Mu = np.array([1])
-            self.Type = np.array([0], dtype=complex)
-            self.hauteur = np.array([self.haut1])
+            Eps1 = self.typemat(lam)
+            Eps = np.array([Eps1], dtype=complex)
+            Mu = np.array([1])
+            Type = np.array([0], dtype=complex)
+            hauteur = np.array([self.haut1])
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 2:
-            Eps1, Eps2 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2], dtype=complex)
-            self.Mu = np.array([1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2])
-            self.Type = np.array([0, 1], dtype=complex)
+            Eps1, Eps2 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2], dtype=complex)
+            Mu = np.array([1, 1])
+            hauteur = np.array([self.haut1, self.haut2])
+            Type = np.array([0, 1], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 3:
-            Eps1, Eps2, Eps3 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3], dtype=complex)
-            self.Mu = np.array([1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3])
-            self.Type = np.array([0, 1, 2], dtype=complex)
+            Eps1, Eps2, Eps3 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3], dtype=complex)
+            Mu = np.array([1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3])
+            Type = np.array([0, 1, 2], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 4:
-            Eps1, Eps2, Eps3, Eps4 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
-            self.Type = np.array([0, 1, 2, 3], dtype=complex)
+            Eps1, Eps2, Eps3, Eps4 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4], dtype=complex)
+            Mu = np.array([1, 1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4])
+            Type = np.array([0, 1, 2, 3], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 5:
-            Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
-            self.Type = np.array([0, 1, 2, 3, 4], dtype=complex)
+            Eps1, Eps2, Eps3, Eps4, Eps5 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5], dtype=complex)
+            Mu = np.array([1, 1, 1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5])
+            Type = np.array([0, 1, 2, 3, 4], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 6:
-            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
-            self.Type = np.array([0, 1, 2, 3, 4, 5], dtype=complex)
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6], dtype=complex)
+            Mu = np.array([1, 1, 1, 1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6])
+            Type = np.array([0, 1, 2, 3, 4, 5], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 7:
-            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1])
-            self.hauteur = np.array(
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7], dtype=complex)
+            Mu = np.array([1, 1, 1, 1, 1, 1, 1])
+            hauteur = np.array(
                 [self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7])
             self.Type = np.array([0, 1, 2, 3, 4, 5, 6], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 8:
-            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
-                                     self.haut8])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7], dtype=complex)
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8], dtype=complex)
+            Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
+                                self.haut8])
+            Type = np.array([0, 1, 2, 3, 4, 5, 6, 7], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 9:
-            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
-                                     self.haut8, self.haut9])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8], dtype=complex)
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9], dtype=complex)
+            Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
+                                self.haut8, self.haut9])
+            Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
         elif self.nombreCouches == 10:
-            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat()
-            self.Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10], dtype=complex)
-            self.Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
-            self.hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
-                                     self.haut8, self.haut9, self.haut10])
-            self.Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=complex)
+            Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10 = self.typemat(lam)
+            Eps = np.array([Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10], dtype=complex)
+            Mu = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+            hauteur = np.array([self.haut1, self.haut2, self.haut3, self.haut4, self.haut5, self.haut6, self.haut7,
+                                self.haut8, self.haut9, self.haut10])
+            Type = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=complex)
+            return Eps, Mu, Type, hauteur
 
     def cascade(self, A, B):
         # On combine deux matrices de diffusion A et B en une seule matrice de diffusion (2*2) S
@@ -1611,51 +1620,37 @@ class mooshGen:
 
     def coefficient(self, thetacoef, _lambda):
 
-        if self.nombreCouches == 1:
-            rc = 0
-        elif self.nombreCouches == 2:
-            rc = 1
-        elif self.nombreCouches == 3:
-            rc = 2
-        elif self.nombreCouches == 4:
-            rc = 3
-        elif self.nombreCouches == 5:
-            rc = 4
-        elif self.nombreCouches == 6:
-            rc = 5
-        elif self.nombreCouches == 7:
-            rc = 6
-        elif self.nombreCouches == 8:
-            rc = 7
-        elif self.nombreCouches == 9:
-            rc = 8
-        elif self.nombreCouches == 10:
-            rc = 9
+        # RangeType = self.nombreCouches - 1
 
-        RangeType = rc
+        # g est la longeur de Type
+        # g = len(self.Type)
+
+        # On définie deux array comme des copies de Type
+
+        # TypeEps = np.copy(self.Type)
+        # TypeMu = np.copy(self.Type)
+        #
+        # # On implémente les valeurs de la permittivité et de la perméabilité dans type pour définir le matériau
+        # for i in range(RangeType, -1, -1):
+        #     TypeEps[TypeEps == i] = self.Eps[i]
+        #     TypeMu[TypeMu == i] = self.Mu[i]
+
+        # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
+
+        TypeEps, TypeMu, Type, hauteur = self.structure(_lambda)
+
         # On considère que la première valeur de la hauteur est 0
-        # self.hauteur[0] = 0
+        hauteur[0] = 0
 
         # On definie k0 à partir de lambda
         k0 = (2 * np.pi) / _lambda
 
         # g est la longeur de Type
-        g = len(self.Type)
+        g = len(Type)
 
-        # On définie deux array comme des copies de Type
-
-        TypeEps = np.copy(self.Type)
-        TypeMu = np.copy(self.Type)
-
-        # On implémente les valeurs de la permittivité et de la perméabilité dans type pour définir le matériau
-        for i in range(RangeType, -1, -1):
-            TypeEps[TypeEps == i] = self.Eps[i]
-            TypeMu[TypeMu == i] = self.Mu[i]
-
-        # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
-        if self.pol == 0:
+        if self.pol == 1:
             f = TypeMu
-        else:
+        elif self.pol == 0:
             f = TypeEps
 
         # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
@@ -1684,7 +1679,7 @@ class mooshGen:
         # Cacul des matrices S
         for k in range(g - 1):
             # Matrice de diffusion des couches
-            t = np.exp(1j * gamma[k] * self.hauteur[k])
+            t = np.exp(1j * gamma[k] * hauteur[k])
             T[2 * k + 1] = np.array([[0, t], [t, 0]])
 
             # Matrice de diffusion d'interface
@@ -1694,7 +1689,7 @@ class mooshGen:
                             [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]]
 
         # Matrice de diffusion pour la dernière couche
-        t = np.exp(1j * gamma[g - 1] * self.hauteur[g - 1])
+        t = np.exp(1j * gamma[g - 1] * hauteur[g - 1])
         T[2 * g - 1] = [[0, t], [t, 0]]
 
         A = np.zeros((2 * g - 1, 2, 2), dtype=complex)
@@ -1726,7 +1721,7 @@ class mooshGen:
         st.write("Coefficient de reflexion de l'énergie :", reflexionE)
         st.write("Coefficient de transmission de l'énergie :", transmissionE)
 
-    def angular(self, lambda_):
+    def angular(self, lambda_, switch):
 
         # Intervalle angulaire
         maxAngle = 89
@@ -1743,19 +1738,37 @@ class mooshGen:
             tht = rangeAngle[i]
             a[i], b[i], c[i], d[i] = self.coefficient(tht, lambda_)
 
-        plt.figure(1)
-        plt.subplot(211)
-        plt.title("Reflexion for lambda")
-        plt.plot(rangeAngle, abs(c))
-        plt.ylabel("Reflexion")
-        plt.xlabel("Angle (degrees)")
-        plt.subplot(212)
-        plt.plot(rangeAngle, np.angle(a))
-        plt.ylabel("Phase")
-        plt.xlabel("Angle")
-        plt.title("Phase of the Reflexion coefficient")
-        plt.tight_layout()
-        st.pyplot(plt)
+        if switch == "Reflexion":
+
+            plt.figure(1)
+            plt.subplot(211)
+            plt.title("Reflection")
+            plt.plot(rangeAngle, abs(c))
+            plt.ylabel("Reflection")
+            plt.xlabel("Angle (degrees)")
+            plt.subplot(212)
+            plt.plot(rangeAngle, np.angle(a))
+            plt.ylabel("Phase")
+            plt.xlabel("Angle")
+            plt.title("Phase of the reflection coefficient")
+            plt.tight_layout()
+            st.pyplot(plt)
+
+        elif switch == "Transmission":
+
+            plt.figure(1)
+            plt.subplot(211)
+            plt.title("Transmission")
+            plt.plot(rangeAngle, abs(d))
+            plt.ylabel("Transmission")
+            plt.xlabel("Angle (degrees)")
+            plt.subplot(212)
+            plt.plot(rangeAngle, np.angle(b))
+            plt.ylabel("Phase")
+            plt.xlabel("Angle")
+            plt.title("Phase of the Transmission coefficient")
+            plt.tight_layout()
+            st.pyplot(plt)
 
     def spectrum(self, theta_):
         minLambda = 400
@@ -1957,6 +1970,9 @@ class sidebarWidget:
     def multiSelectPolaGen(self):
         return st.selectbox("Polarisation", ["Polarisation TE", "Polarisation TM"])
 
+    def switchRefTraGen(self):
+        return st.radio("", ("Reflexion", "Transmission"))
+
 
 def homepage():
     st.write("Homepage")
@@ -1975,8 +1991,8 @@ def genmoosh():
         st.markdown(" ## Définition de la longueur d'onde pour la permittivité des matériaux")
         permSet = widget.PermiSetGen()
         st.markdown(" ## Choix des matériaux de la structure")
-        gen = mooshGen(strucSlider, permSet, pol)
-        gen.structure()
+        gen = mooshGen(strucSlider, pol)
+        gen.structure(permSet)
 
     with st.sidebar.beta_expander('Coefficients'):
         st.markdown("## Coefficients de réflexion et de transmittance de la structure")
@@ -1994,10 +2010,11 @@ def genmoosh():
         st.markdown("## Coefficient de réflexion en fonction de l'angle")
         st.write("Définition d'une longeur d'onde constante")
         angLambGen = widget.lambAngGen()
+        switchRT = widget.switchRefTraGen()
         btnAngGen = widget.btnAngGen()
 
     if btnAngGen == 1:
-        gen.angular(angLambGen)
+        gen.angular(angLambGen, switchRT)
 
     with st.sidebar.beta_expander('Spectrum'):
         st.markdown("## Coefficient de réflexion en fonction de la longueur d'onde")
@@ -2106,4 +2123,3 @@ elif side_menu_navigation == 'Exemples':
     exmoosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
-
