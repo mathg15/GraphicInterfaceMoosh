@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from scipy import special
 import streamlit as st
 import matplotlib.image as im
+import matplotlib.colors as mcolors
 
 
 # Bragg
@@ -1721,11 +1722,12 @@ class mooshGen:
         st.write("Coefficient de reflexion de l'énergie :", reflexionE)
         st.write("Coefficient de transmission de l'énergie :", transmissionE)
 
-    def angular(self, lambda_, switch):
+    def angular(self, lambda_, switch, minAngle, maxAngle):
 
         # Intervalle angulaire
-        maxAngle = 89
-        minAngle = 0
+
+        # maxAngle = 60
+        # minAngle = 30
         rangeAngle = np.linspace(minAngle, maxAngle, 200)
 
         # Création des matrices
@@ -1798,6 +1800,123 @@ class mooshGen:
         plt.tight_layout()
         st.pyplot(plt)
 
+    def beam(self, _lambda, _theta, C):
+
+        TypeEps, TypeMu, Type, hauteur = self.structure(_lambda)
+
+        # Spatial window size
+        d = 70 * _lambda
+
+        # Incident beam width
+        w = 10 * _lambda
+
+        # Number of pixels horizontally
+        nx = np.floor(d/3)
+
+        # Number of pixels verticaly
+        ny = np.floor(hauteur /3)
+        # print(ny)
+        # Number of modes
+        nmod = np.floor(0.83660 * (d / w))
+
+        hauteur = hauteur / d
+        l = _lambda / d
+        w = w / d
+
+        if self.pol == 0:
+            f = TypeMu
+        else:
+            f = TypeEps
+
+        k0 = (2 * np.pi) / l
+
+        En = np.zeros((int(np.sum(ny)), int(nx)), dtype=complex)
+
+        # g est la longeur de Type
+        g = len(Type)
+
+        # Amplitude of the different modes
+        X = np.exp(-(w ** 2) * (np.pi ** 2) * np.arange(-nmod, nmod + 1) ** 2) * np.exp(
+            2 * 1j * np.pi * np.arange(-nmod, nmod + 1) * C)
+
+        # Scattering matrix
+        T = np.zeros((2 * g, 2, 2), dtype=complex)
+        T[0] = [[0, 1], [1, 0]]
+
+        for nm in range(int(2 * nmod)):
+            alpha = np.sqrt(TypeEps[0] * TypeMu[0]) * k0 * np.sin(_theta) + 2 * np.pi * (nm - nmod - 1)
+            # print("alpha :",alpha)
+            gamma = np.sqrt(TypeEps * TypeMu * (k0 ** 2) - np.ones(g) * (alpha ** 2))
+
+            if np.real(TypeEps[0]) < 0 and np.real(TypeMu[0]):
+                gamma[0] = -gamma[0]
+
+            # On modifie la détermination de la racine carrée pour obtenir un stabilité parfaite
+            if g > 2:
+                gamma[1: g - 2] = gamma[1:g - 2] * (1 - 2 * (np.imag(gamma[1:g - 2]) < 0))
+            # Condition de l'onde sortante pour le dernier milieu
+            if np.real(TypeEps[g - 1]) < 0 and np.real(TypeMu[g - 1]) < 0 and np.real(
+                    np.sqrt(TypeEps[g - 1] * TypeMu * (k0 ** 2) - (alpha ** 2))):
+                gamma[g - 1] = -np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] - (alpha ** 2))
+            else:
+                gamma[g - 1] = np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] * (k0 ** 2) - (alpha ** 2))
+
+            for k in range(g - 1):
+                # Matrice de diffusion des couches
+                t = np.exp(1j * gamma[k] * hauteur[k])
+                T[2 * k + 1] = np.array([[0, t], [t, 0]])
+
+                # Matrice de diffusion d'interface
+                b1 = gamma[k] / (f[k])
+                b2 = gamma[k + 1] / (f[k + 1])
+                T[2 * k + 2] = [[(b1 - b2) / (b1 + b2), (2 * b2) / (b1 + b2)],
+                                [(2 * b1) / (b1 + b2), (b2 - b1) / (b1 + b2)]]
+
+            # Matrice de diffusion pour la dernière couche
+            t = np.exp(1j * gamma[g - 1] * hauteur[g - 1])
+            T[2 * g - 1] = [[0, t], [t, 0]]
+
+            A = np.zeros((2 * g - 1, 2, 2), dtype=complex)
+            A[0] = T[0]
+
+            H = np.zeros((2 * g - 1, 2, 2), dtype=complex)
+            H[0] = T[2 * g - 1]
+
+            for j in range(len(T) - 2):
+                A[j + 1] = self.cascade(A[j], T[j + 1])
+                H[j + 1] = self.cascade(T[len(T) - 2 - j], H[j])
+
+            I = np.zeros((len(T), 2, 2), dtype=complex)
+            for j in range(len(T) - 1):
+                I[j] = np.array([[A[j][1, 0], A[j][1, 1] * H[len(T) - j - 2][0, 1]],
+                                 [A[j][1, 0] * H[len(T) - j - 2][0, 0], H[len(T) - j - 2][0, 1]]] / (
+                                            1 - A[j][1, 1] * H[len(T) - j - 2][0, 0]))
+            h = 0
+            t = 0
+
+            E = np.zeros((int(np.sum(ny)), 1), dtype=complex)
+
+            for k in range(g):
+                for m in range(int(ny[k])):
+                    h = h + hauteur[k] / ny[k]
+                    E[t, 0] = I[2 * k][0, 0] * np.exp(1j * gamma[k] * h) + I[2 * k + 1][1, 0] * np.exp(
+                        1j * gamma[k] * (hauteur[k] - h))
+                    t += 1
+                h = 0
+
+            E = E * np.exp(1j * alpha * np.arange(0, nx) / nx)
+            En = En + X[int(nm)] * E
+
+        V = np.abs(En)
+        V = V / V.max()
+
+        norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
+
+        plt.figure(1)
+        plt.pcolormesh(V / V.max() , norm=norm, cmap='jet')
+        plt.colorbar()
+        st.pyplot(plt)
+
 
 # Haut de la page
 
@@ -1805,167 +1924,129 @@ st.set_page_config(page_title="Moosh", page_icon="./Images/appImage.png")
 
 
 # Sidebar
+
+
 class sidebarWidget:
 
     def sliderPara(self):
-        n = st.slider("Nombre de miroirs", 1, 50, 20, 1)
-        return n
+        return st.slider("Nombre de miroirs", 1, 50, 20, 1)
 
     def checkPara(self):
-        n = st.radio("Polarisation", ("Polarisation TE", "Polarisation TM"))
-        return n
+        return st.radio("Polarisation", ("Polarisation TE", "Polarisation TM"))
 
     def angleInput1(self):
-        n = st.number_input("Angle d'incidence", 1, 90, 35, format=None, key=1)
-        return n
+        return st.number_input("Angle d'incidence", 1, 90, 35, format=None, key=1)
 
     def angleInput2(self):
-        n = st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=2)
-        return n
+        return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=2)
 
     def angleInput3(self):
-        n = st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=3)
-        return n
+        return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=3)
 
     def lambdaInput1(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=1)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=1)
 
     def lambdaInput2(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=2)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=2)
 
     def lambdaInput3(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=3)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=3)
 
     def lambdaInput4(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=4)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=4)
 
     def beamPos(self):
-        n = st.slider("Position", 0.0, 1.0, 0.4, 0.1)
-        return n
+        return st.slider("Position", 0.0, 1.0, 0.4, 0.1)
 
     def selectBox1(self):
-        n = st.selectbox("Choix du verre", ("BK7", "SiO2", "TiO2"))
-        return n
+        return st.selectbox("Choix du verre", ("BK7", "SiO2", "TiO2"))
 
     def struslider(self):
-        n = st.slider("Nombres de couches", 1, 10, 1, 1)
-        return n
+        return st.slider("Nombres de couches", 1, 10, 1, 1)
 
     def selecBoxGen1(self):
-        n = st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=1)
-        return n
+        return st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=1)
 
     def hauteurGen1(self):
-        n = st.number_input("Epaisseur du matériau 1", 1, 20000, 400, 1, key=1)
-        return n
+        return st.number_input("Epaisseur du matériau 1", 1, 20000, 400, 1, key=1)
 
     def selecBoxGen2(self):
-        n = st.selectbox("Choix du matériau 2", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=2)
-        return n
+        return st.selectbox("Choix du matériau 2", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=2)
 
     def hauteurGen2(self):
-        n = st.number_input("Epaisseur du matériau 2", 1, 20000, 400, 1, key=2)
-        return n
+        return st.number_input("Epaisseur du matériau 2", 1, 20000, 400, 1, key=2)
 
     def selecBoxGen3(self):
-        n = st.selectbox("Choix du matériau 3", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=3)
-        return n
+        return st.selectbox("Choix du matériau 3", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=3)
 
     def hauteurGen3(self):
-        n = st.number_input("Epaisseur du matériau 3", 1, 20000, 400, 1, key=3)
-        return n
+        return st.number_input("Epaisseur du matériau 3", 1, 20000, 400, 1, key=3)
 
     def selecBoxGen4(self):
-        n = st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=4)
-        return n
+        return st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=4)
 
     def hauteurGen4(self):
-        n = st.number_input("Epaisseur du matériau 4", 1, 20000, 400, 1, key=4)
-        return n
+        return st.number_input("Epaisseur du matériau 4", 1, 20000, 400, 1, key=4)
 
     def selecBoxGen5(self):
-        n = st.selectbox("Choix du matériau 5", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=5)
-        return n
+        return st.selectbox("Choix du matériau 5", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=5)
 
     def hauteurGen5(self):
-        n = st.number_input("Epaisseur du matériau 5", 1, 20000, 400, 1, key=5)
-        return n
+        return st.number_input("Epaisseur du matériau 5", 1, 20000, 400, 1, key=5)
 
     def selecBoxGen6(self):
-        n = st.selectbox("Choix du matériau 6", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=6)
-        return n
+        return st.selectbox("Choix du matériau 6", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=6)
 
     def hauteurGen6(self):
-        n = st.number_input("Epaisseur du matériau 6", 1, 20000, 400, 1, key=6)
-        return n
+        return st.number_input("Epaisseur du matériau 6", 1, 20000, 400, 1, key=6)
 
     def selecBoxGen7(self):
-        n = st.selectbox("Choix du matériau 7", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=7)
-        return n
+        return st.selectbox("Choix du matériau 7", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=7)
 
     def hauteurGen7(self):
-        n = st.number_input("Epaisseur du matériau 7", 1, 20000, 400, 1, key=7)
-        return n
+        return st.number_input("Epaisseur du matériau 7", 1, 20000, 400, 1, key=7)
 
     def selecBoxGen8(self):
-        n = st.selectbox("Choix du matériau 8", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=8)
-        return n
+        return st.selectbox("Choix du matériau 8", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=8)
 
     def hauteurGen8(self):
-        n = st.number_input("Epaisseur du matériau 8", 1, 20000, 400, 1, key=8)
-        return n
+        return st.number_input("Epaisseur du matériau 8", 1, 20000, 400, 1, key=8)
 
     def selecBoxGen9(self):
-        n = st.selectbox("Choix du matériau 9", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=9)
-        return n
+        return st.selectbox("Choix du matériau 9", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=9)
 
     def hauteurGen9(self):
-        n = st.number_input("Epaisseur du matériau 9", 1, 20000, 400, 1, key=9)
-        return n
+        return st.number_input("Epaisseur du matériau 9", 1, 20000, 400, 1, key=9)
 
     def selecBoxGen10(self):
-        n = st.selectbox("Choix du matériau 10", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=10)
-        return n
+        return st.selectbox("Choix du matériau 10", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=10)
 
     def hauteurGen10(self):
-        n = st.number_input("Epaisseur du matériau 10", 1, 20000, 400, 1, key=10)
-        return n
+        return st.number_input("Epaisseur du matériau 10", 1, 20000, 400, 1, key=10)
 
     def angleCoefGen(self):
-        n = st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=4)
-        return n
+        return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=4)
 
     def lambdaCoefGen(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=5)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=5)
 
     def lambAngGen(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=6)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=6)
 
     def btnAngGen(self):
-        n = st.button("Afficher Angular")
-        return n
+        return st.button("Afficher Angular")
 
     def thetaSpecGen(self):
-        n = st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=5)
-        return n
+        return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=5)
 
     def btnSpecGen(self):
-        n = st.button("Afficher Spectrum")
-        return n
+        return st.button("Afficher Spectrum")
 
     def btnCoefGen(self):
-        n = st.button("Afficher les coefficients")
-        return n
+        return st.button("Afficher les coefficients")
 
     def PermiSetGen(self):
-        n = st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=7)
-        return n
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=7)
 
     def multiSelectPolaGen(self):
         return st.selectbox("Polarisation", ["Polarisation TE", "Polarisation TM"])
@@ -1973,6 +2054,23 @@ class sidebarWidget:
     def switchRefTraGen(self):
         return st.radio("", ("Reflexion", "Transmission"))
 
+    def minWinAngGen(self):
+        return st.number_input("Angle minimum", 0, 90, 0, format=None, key=7)
+
+    def maxWinAngGen(self):
+        return st.number_input("Angle maximum", 0, 90, 90, format=None, key=8)
+
+    def lambBeamGen(self):
+        return st.number_input("Longueur d'onde",400,800,600,key=8)
+
+    def angBeamGen(self):
+        return st.number_input("Angle",1.0,90.0,45.0,0.1,key=9)
+
+    def posBeamGen(self):
+        return st.number_input("Position",0.0,1.0,0.4,0.1,key=1)
+
+    def btnBeamGen(self):
+        return st.button("Afficher Beam")
 
 def homepage():
     st.write("Homepage")
@@ -2008,13 +2106,17 @@ def genmoosh():
 
     with st.sidebar.beta_expander('Angular'):
         st.markdown("## Coefficient de réflexion en fonction de l'angle")
-        st.write("Définition d'une longueur d'onde constante")
+        st.write("Définition d'une longeur d'onde constante")
         angLambGen = widget.lambAngGen()
+        st.write("Intervalle angulaire")
+        angMaxAnGen = widget.maxWinAngGen()
+        angMinAnGen = widget.minWinAngGen()
+
         switchRT = widget.switchRefTraGen()
         btnAngGen = widget.btnAngGen()
 
     if btnAngGen == 1:
-        gen.angular(angLambGen, switchRT)
+        gen.angular(angLambGen, switchRT, angMinAnGen, angMaxAnGen)
 
     with st.sidebar.beta_expander('Spectrum'):
         st.markdown("## Coefficient de réflexion en fonction de la longueur d'onde")
@@ -2026,8 +2128,14 @@ def genmoosh():
         gen.spectrum(specAngGen)
 
     with st.sidebar.beta_expander('Beam'):
-        b = 0
+        st.markdown("## Modélisation du faisceau lumineux")
+        beamAngGen = widget.angBeamGen()
+        beamLambGen = widget.lambBeamGen()
+        beamPosGen = widget.posBeamGen()
+        btnBeamGen = widget.btnBeamGen()
 
+    if btnBeamGen == 1:
+        gen.beam(beamLambGen,beamAngGen,beamPosGen)
 
 def exmoosh():
     global polbragg
