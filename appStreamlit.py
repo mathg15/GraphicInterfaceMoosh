@@ -1803,6 +1803,8 @@ class mooshGen:
     def beam(self, _lambda, _theta, C):
 
         TypeEps, TypeMu, Type, hauteur = self.structure(_lambda)
+        
+        _theta = _theta * (np.pi / 180)
 
         # Spatial window size
         d = 70 * _lambda
@@ -1811,10 +1813,10 @@ class mooshGen:
         w = 10 * _lambda
 
         # Number of pixels horizontally
-        nx = np.floor(d/3)
+        nx = np.floor(d/10)
 
         # Number of pixels verticaly
-        ny = np.floor(hauteur /3)
+        ny = np.floor(hauteur /10)
         # print(ny)
         # Number of modes
         nmod = np.floor(0.83660 * (d / w))
