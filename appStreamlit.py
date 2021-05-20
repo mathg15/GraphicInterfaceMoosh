@@ -2008,7 +2008,7 @@ def genmoosh():
 
     with st.sidebar.beta_expander('Angular'):
         st.markdown("## Coefficient de réflexion en fonction de l'angle")
-        st.write("Définition d'une longeur d'onde constante")
+        st.write("Définition d'une longueur d'onde constante")
         angLambGen = widget.lambAngGen()
         switchRT = widget.switchRefTraGen()
         btnAngGen = widget.btnAngGen()
