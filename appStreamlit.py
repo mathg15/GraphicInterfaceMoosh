@@ -1660,7 +1660,7 @@ class SPR:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion for lambda = 600 nm")
+        plt.title("Reflexion ")
         plt.plot(rangeAngle, abs(c))
         plt.ylabel("Reflexion")
         plt.xlabel("Angle (degrees)")
