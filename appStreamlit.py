@@ -2417,7 +2417,6 @@ class mooshGen:
     #     plt.xlabel("Angle (degrees)")
 
 
-
 # Haut de la page
 
 st.set_page_config(page_title="Moosh", page_icon="./Images/appImage.png")
@@ -2615,7 +2614,7 @@ class sidebarWidget:
         return st.button("Afficher l'absorption")
 
     def sliderLayerGen(self):
-        return st.slider("Layer",1,5,2)
+        return st.slider("Layer", 1, 5, 2)
 
 
 def homepage():
@@ -2706,10 +2705,24 @@ class Bragg:
         # On définie le nombre de période
         self.n_periods = periods
 
-        # Définition de la polarisation
-        self.pol = pol
+        rep0 = np.tile([1, 2], (1, self.n_periods))
+        rep0 = np.insert(rep0, 0, 0)
+        rep0 = np.append(rep0, 0)
+        self.Type = rep0
 
-        self.i = complex(0, 1)
+        # Idem pour la hauteur
+        rep1 = np.tile([600 / np.sqrt(2), 600 / (4 * 2)], (1, self.n_periods))
+        rep1 = np.insert(rep1, 0, 1600)
+        rep1 = np.append(rep1, 100)
+        self.hauteur = rep1
+
+        # Définition de la polarisation
+        if pol == "Polarisation TE":
+            polw = 1
+        elif pol == "Polarisation TM":
+            polw = 0
+
+        self.pol = polw
 
     def structure(self):
         # Définition de la structure du matériau => ( 0, 1, 2, 1, 2, ...., 1, 2, 0)
@@ -2733,7 +2746,7 @@ class Bragg:
             TypeEps[TypeEps == i] = self.Eps[i]
             TypeMu[TypeMu == i] = self.Mu[i]
 
-        return TypeEps, TypeEps, Type, hauteur
+        return TypeEps, TypeMu, Type, hauteur
 
     def cascade(self, A, B):
         # On combine deux matrices de diffusion A et B en une seule matrice de diffusion (2*2) S
@@ -2748,7 +2761,7 @@ class Bragg:
         TypeEps, TypeMu, Type, hauteur = self.structure()
 
         # On considère que la première valeur de la hauteur est 0
-        hauteur[0] = 0
+        self.hauteur[0] = 0
 
         # On definie k0 à partir de lambda
         k0 = (2 * np.pi) / _lambda
@@ -2759,7 +2772,7 @@ class Bragg:
         # En fonction de la polarisation, f prend soit la valeur TypeMu ou la valeur TypeEps
         if self.pol == 0:
             f = TypeMu
-        elif self.pol == 1:
+        else:
             f = TypeEps
 
         # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
@@ -2849,7 +2862,7 @@ class Bragg:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion for lambda = 600 nm")
+        plt.title("Reflexion ")
         plt.plot(rangeAngle, abs(c))
         plt.ylabel("Reflexion")
         plt.xlabel("Angle (degrees)")
@@ -3007,7 +3020,7 @@ class Bragg:
         norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
 
         plt.figure(1)
-        plt.pcolormesh(V / V.max(), norm=norm, cmap='jet')
+        plt.pcolormesh(V / V.max() * 0.5, norm=norm, cmap='jet')
         plt.colorbar()
         st.pyplot(plt)
 
@@ -3161,7 +3174,7 @@ class SPR:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion")
+        plt.title("Reflexion for lambda = 600 nm")
         plt.plot(rangeAngle, abs(c))
         plt.ylabel("Reflexion")
         plt.xlabel("Angle (degrees)")
@@ -3357,12 +3370,7 @@ def exmoosh():
             beamAng = widget.angleInput3()
             btnBeam = st.button("Afficher Beam")
 
-        if polparab == 'Polarisation TE':
-            polbragg = 1
-        elif polpara == 'Polarisation TM':
-            polbragg = 0
-
-        Bragg_ = Bragg(mirpara, polbragg)
+        Bragg_ = Bragg(mirpara, polparab)
 
         if btnCoef == 1:
             Bragg_.affichageCoef(coefAng, coefLamb)
@@ -3378,7 +3386,7 @@ def exmoosh():
 
     elif sideBarExp == 'Plasmon de surface':
         st.text("SPR")
-        st.text("Work in progress")
+        st.text("")
         with st.sidebar.beta_expander(" Paramètres"):
             st.markdown(" ## Paramètres")
             polSpr = widget.polParaSPR()
