@@ -1104,8 +1104,13 @@ class sidebarWidget:
 
 
 def homepage():
-    st.write("Homepage")
-    st.text('Work in progress')
+    st.title("Moosh")
+    st.header("Le couteur suisse de l'optique")
+
+    rick = st.button("Cliquer ici")
+    if rick == 1:
+        st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        st.balloons()
 
 
 def genmoosh():
