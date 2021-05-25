@@ -39,62 +39,62 @@ class sidebarWidget:
     def struslider(self):
         return st.slider("Nombres de couches", 1, 10, 1, 1)
 
-    def selecBoxGen1(self):
-        return st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=1)
+        def selecBoxGen1(self):
+        return st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=1)
 
     def hauteurGen1(self):
         return st.number_input("Epaisseur du matériau 1", 1, 20000, 400, 1, key=1)
 
     def selecBoxGen2(self):
-        return st.selectbox("Choix du matériau 2", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=2)
+        return st.selectbox("Choix du matériau 2", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=2)
 
     def hauteurGen2(self):
         return st.number_input("Epaisseur du matériau 2", 1, 20000, 400, 1, key=2)
 
     def selecBoxGen3(self):
-        return st.selectbox("Choix du matériau 3", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=3)
+        return st.selectbox("Choix du matériau 3", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=3)
 
     def hauteurGen3(self):
         return st.number_input("Epaisseur du matériau 3", 1, 20000, 400, 1, key=3)
 
     def selecBoxGen4(self):
-        return st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=4)
+        return st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=4)
 
     def hauteurGen4(self):
         return st.number_input("Epaisseur du matériau 4", 1, 20000, 400, 1, key=4)
 
     def selecBoxGen5(self):
-        return st.selectbox("Choix du matériau 5", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=5)
+        return st.selectbox("Choix du matériau 5", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=5)
 
     def hauteurGen5(self):
         return st.number_input("Epaisseur du matériau 5", 1, 20000, 400, 1, key=5)
 
     def selecBoxGen6(self):
-        return st.selectbox("Choix du matériau 6", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=6)
+        return st.selectbox("Choix du matériau 6", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=6)
 
     def hauteurGen6(self):
         return st.number_input("Epaisseur du matériau 6", 1, 20000, 400, 1, key=6)
 
     def selecBoxGen7(self):
-        return st.selectbox("Choix du matériau 7", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=7)
+        return st.selectbox("Choix du matériau 7", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=7)
 
     def hauteurGen7(self):
         return st.number_input("Epaisseur du matériau 7", 1, 20000, 400, 1, key=7)
 
     def selecBoxGen8(self):
-        return st.selectbox("Choix du matériau 8", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=8)
+        return st.selectbox("Choix du matériau 8", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=8)
 
     def hauteurGen8(self):
         return st.number_input("Epaisseur du matériau 8", 1, 20000, 400, 1, key=8)
 
     def selecBoxGen9(self):
-        return st.selectbox("Choix du matériau 9", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=9)
+        return st.selectbox("Choix du matériau 9", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=9)
 
     def hauteurGen9(self):
         return st.number_input("Epaisseur du matériau 9", 1, 20000, 400, 1, key=9)
 
     def selecBoxGen10(self):
-        return st.selectbox("Choix du matériau 10", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr"), key=10)
+        return st.selectbox("Choix du matériau 10", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=10)
 
     def hauteurGen10(self):
         return st.number_input("Epaisseur du matériau 10", 1, 20000, 400, 1, key=10)
