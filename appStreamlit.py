@@ -1109,7 +1109,7 @@ def homepage():
 
     rick = st.button("Cliquer ici")
     if rick == 1:
-        st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        st.video("https://www.youtube.com/watch?v=3GwjfUFyY6M&list=RDdQw4w9WgXcQ&index=14")
         st.balloons()
 
 
