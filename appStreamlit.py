@@ -1716,7 +1716,8 @@ def exmoosh():
             Bragg_.beam(beamLamb, beamAng, bPos)
 
     elif sideBarExp == 'Plasmon de surface':
-        
+        st.text("SPR")
+        st.text("")
         with st.sidebar.beta_expander(" Paramètres"):
             st.markdown(" ## Paramètres")
             polSpr = widget.polParaSPR()
