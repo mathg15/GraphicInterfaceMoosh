@@ -212,7 +212,7 @@ class mooshGen:
             self.mat10 = widget.selecBoxGen10()
             self.haut10 = widget.hauteurGen10()
 
-        def typemat(self, lam):
+    def typemat(self, lam):
 
         m = mat(lam)
         epsbk7 = m.bk7()
