@@ -212,7 +212,7 @@ class mooshGen:
             self.mat10 = widget.selecBoxGen10()
             self.haut10 = widget.hauteurGen10()
 
-    def typemat(self, lam):
+        def typemat(self, lam):
 
         m = mat(lam)
         epsbk7 = m.bk7()
@@ -221,7 +221,8 @@ class mooshGen:
         epsH2O = m.h2o()
         epsTiO2 = m.TiO2()
         epsSiO2 = m.SiO2()
-
+        epsAg = m.Ag()
+        epsZnO = m.ZnO()
         ####
 
         if self.mat1 == 'Air':
@@ -238,7 +239,10 @@ class mooshGen:
             Eps1 = epsAu
         elif self.mat1 == 'Cr':
             Eps1 = epsCr
-
+        elif self.mat1 == 'Ag':
+            Eps1 = epsAg
+        elif self.mat1 == 'ZnO':
+            Eps1 = epsZnO
         if self.nombreCouches == 1:
             return Eps1
 
@@ -258,6 +262,10 @@ class mooshGen:
             Eps2 = epsAu
         elif self.mat2 == 'Cr':
             Eps2 = epsCr
+        elif self.mat2 == 'Ag':
+            Eps2 = epsAg
+        elif self.mat2 == 'ZnO':
+            Eps2 = epsZnO
 
         if self.nombreCouches == 2:
             return Eps1, Eps2
@@ -278,6 +286,10 @@ class mooshGen:
             Eps3 = epsAu
         elif self.mat3 == 'Cr':
             Eps3 = epsCr
+        elif self.mat3 == 'Ag':
+            Eps3 = epsAg
+        elif self.mat3 == 'ZnO':
+            Eps3 = epsZnO
 
         if self.nombreCouches == 3:
             return Eps1, Eps2, Eps3
@@ -298,6 +310,10 @@ class mooshGen:
             Eps4 = epsAu
         elif self.mat4 == 'Cr':
             Eps4 = epsCr
+        elif self.mat4 == 'Ag':
+            Eps4 = epsAg
+        elif self.mat4 == 'ZnO':
+            Eps4 = epsZnO
 
         if self.nombreCouches == 4:
             return Eps1, Eps2, Eps3, Eps4
@@ -318,6 +334,10 @@ class mooshGen:
             Eps5 = epsAu
         elif self.mat5 == 'Cr':
             Eps5 = epsCr
+        elif self.mat5 == 'Ag':
+            Eps5 = epsAg
+        elif self.mat5 == 'ZnO':
+            Eps5 = epsZnO
 
         if self.nombreCouches == 5:
             return Eps1, Eps2, Eps3, Eps4, Eps5
@@ -338,6 +358,10 @@ class mooshGen:
             Eps6 = epsAu
         elif self.mat6 == 'Cr':
             Eps6 = epsCr
+        elif self.mat6 == 'Ag':
+            Eps6 = epsAg
+        elif self.mat6 == 'ZnO':
+            Eps6 = epsZnO
 
         if self.nombreCouches == 6:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6
@@ -358,6 +382,10 @@ class mooshGen:
             Eps7 = epsAu
         elif self.mat7 == 'Cr':
             Eps7 = epsCr
+        elif self.mat7 == 'Ag':
+            Eps7 = epsAg
+        elif self.mat7 == 'ZnO':
+            Eps7 = epsZnO
 
         if self.nombreCouches == 7:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7
@@ -378,6 +406,10 @@ class mooshGen:
             Eps8 = epsAu
         elif self.mat8 == 'Cr':
             Eps8 = epsCr
+        elif self.mat8 == 'Ag':
+            Eps8 = epsAg
+        elif self.mat8 == 'ZnO':
+            Eps8 = epsZnO
 
         if self.nombreCouches == 8:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8
@@ -398,6 +430,10 @@ class mooshGen:
             Eps9 = epsAu
         elif self.mat9 == 'Cr':
             Eps9 = epsCr
+        elif self.mat9 == 'Ag':
+            Eps9 = epsAg
+        elif self.mat9 == 'ZnO':
+            Eps9 = epsZnO
 
         if self.nombreCouches == 9:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9
@@ -418,6 +454,10 @@ class mooshGen:
             Eps10 = epsAu
         elif self.mat10 == 'Cr':
             Eps10 = epsCr
+        elif self.mat10 == 'Ag':
+            Eps10 = epsAg
+        elif self.mat10 == 'ZnO':
+            Eps10 = epsZnO
 
         if self.nombreCouches == 10:
             return Eps1, Eps2, Eps3, Eps4, Eps5, Eps6, Eps7, Eps8, Eps9, Eps10
