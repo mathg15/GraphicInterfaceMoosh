@@ -873,7 +873,7 @@ class mat:
         eps = np.interp(self._lambda, a, e)
         return eps
 
-    def Agbb(self):
+    def Ag(self):
         w = 6.62606957e-25 * 299792458 / 1.602176565e-19 / self._lambda
 
         f0 = 0.821
