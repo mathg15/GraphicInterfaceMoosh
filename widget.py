@@ -39,7 +39,7 @@ class sidebarWidget:
     def struslider(self):
         return st.slider("Nombres de couches", 1, 10, 1, 1)
 
-        def selecBoxGen1(self):
+    def selecBoxGen1(self):
         return st.selectbox("Choix du matériau 1", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=1)
 
     def hauteurGen1(self):
