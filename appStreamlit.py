@@ -706,9 +706,9 @@ class mooshGen:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion for lambda ")
+        plt.title("Reflection  ")
         plt.plot(rangeLambda, abs(c))
-        plt.ylabel("Reflexion")
+        plt.ylabel("Reflection")
         plt.xlabel("Angle (degrees)")
         plt.subplot(212)
         plt.plot(rangeLambda, np.angle(a))
