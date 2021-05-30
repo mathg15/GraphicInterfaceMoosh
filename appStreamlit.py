@@ -950,7 +950,7 @@ class mooshGen:
 
 def homepage():
     st.title("Moosh")
-    st.header("Le couteur suisse de l'optique")
+    st.header("Le couteau suisse de l'optique")
 
 
 def genmoosh():
