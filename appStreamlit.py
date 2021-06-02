@@ -9,7 +9,7 @@ from widget import *
 
 # Haut de la page
 
-st.set_page_config(page_title="Moosh", page_icon="./Images/appImage.png")
+st.set_page_config(page_title="Moosh", page_icon="./Images/logo_moosh.jpg")
 
 
 class mooshGen:
@@ -1773,6 +1773,7 @@ def documentation():
 
 widget = sidebarWidget()
 
+st.sidebar.image("./Images/logo_moosh.jpg")
 st.sidebar.title("Navigation")
 st.sidebar.write('')
 
