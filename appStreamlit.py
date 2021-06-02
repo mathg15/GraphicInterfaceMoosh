@@ -706,7 +706,7 @@ class mooshGen:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflection  ")
+        plt.title("Reflection ")
         plt.plot(rangeLambda, abs(c))
         plt.ylabel("Reflection")
         plt.xlabel("Angle (degrees)")
@@ -828,6 +828,7 @@ class mooshGen:
             En = En + X[int(nm)] * E
 
         V = np.abs(En)
+        V = np.flip(V)
         V = V / V.max()
 
         norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
@@ -1170,7 +1171,7 @@ class Bragg:
 
         st.write("Coefficient de reflexion de l'ensemble de la structure :", reflexionT)
         st.write("Coefficient de transmission de l'ensemble de la structure :", transmissionT)
-        st.write("Coefficient de transmission de l'énergie :", reflexionE)
+        st.write("Coefficient de reflexion de l'énergie :", reflexionE)
         st.write("Coefficient de transmission de l'énergie :", transmissionE)
 
     def angular(self, lambda_):
@@ -1193,15 +1194,15 @@ class Bragg:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion ")
+        plt.title("Reflection ")
         plt.plot(rangeAngle, abs(c))
-        plt.ylabel("Reflexion")
+        plt.ylabel("Reflection")
         plt.xlabel("Angle (degrees)")
         plt.subplot(212)
         plt.plot(rangeAngle, np.angle(a))
         plt.ylabel("Phase")
         plt.xlabel("Angle")
-        plt.title("Phase of the Reflexion coefficient")
+        plt.title("Phase of the Reflection coefficient")
         plt.tight_layout()
         st.pyplot(plt)
 
@@ -1224,15 +1225,15 @@ class Bragg:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion for lambda")
+        plt.title("Reflection")
         plt.plot(rangeLambda, abs(c))
-        plt.ylabel("Reflexion")
+        plt.ylabel("Reflection")
         plt.xlabel("Wavelength")
         plt.subplot(212)
         plt.plot(rangeLambda, np.angle(a))
         plt.ylabel("Phase")
         plt.xlabel("Wavelength")
-        plt.title("Phase of the Reflexion coefficient")
+        plt.title("Phase of the Reflection coefficient")
         plt.tight_layout()
         st.pyplot(plt)
 
@@ -1346,6 +1347,7 @@ class Bragg:
             En = En + X[int(nm)] * E
 
         V = np.abs(En)
+        V = np.flip(V)
         V = V / V.max()
 
         norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
@@ -1505,15 +1507,15 @@ class SPR:
 
         plt.figure(1)
         plt.subplot(211)
-        plt.title("Reflexion for lambda = 600 nm")
+        plt.title("Reflection")
         plt.plot(rangeAngle, abs(c))
-        plt.ylabel("Reflexion")
+        plt.ylabel("Reflection")
         plt.xlabel("Angle (degrees)")
         plt.subplot(212)
         plt.plot(rangeAngle, np.angle(a))
         plt.ylabel("Phase")
         plt.xlabel("Angle")
-        plt.title("Phase of the Reflexion coefficient")
+        plt.title("Phase of the Reflection coefficient")
         plt.tight_layout()
         st.pyplot(plt)
 
@@ -1658,6 +1660,7 @@ class SPR:
             En = En + X[int(nm)] * E
 
         V = np.abs(En)
+        V = np.flip(V)
         V = V / V.max()
 
         norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
