@@ -962,12 +962,10 @@ def genmoosh():
         st.markdown(" ## Sélection du nombre de couche de la structure et de la polarisation")
         strucSlider = widget.struslider()
         pol = widget.multiSelectPolaGen()
-
-        st.markdown(" ## Définition de la longueur d'onde pour la permittivité des matériaux")
-        permSet = widget.PermiSetGen()
+        
         st.markdown(" ## Choix des matériaux de la structure")
         gen = mooshGen(strucSlider, pol)
-        gen.structure(permSet)
+        
 
     with st.sidebar.beta_expander('Coefficients'):
         st.markdown("## Coefficients de réflexion et de transmittance de la structure")
