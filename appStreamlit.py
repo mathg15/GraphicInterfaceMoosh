@@ -743,9 +743,9 @@ class mooshGen:
         l = _lambda / d
         w = w / d
 
-        if self.pol == 1:
+        if self.pol == 0:
             f = TypeEps
-        elif self.pol == 0:
+        elif self.pol == 1:
             f = TypeMu
 
         k0 = (2 * np.pi) / l
