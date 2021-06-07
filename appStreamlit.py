@@ -836,7 +836,7 @@ class mooshGen:
         plt.figure(1)
         plt.pcolormesh(V / V.max(), norm=norm, cmap='jet')
         plt.colorbar()
-        plt.title(f"Light beam for lambda = {_lambda} \n with an incidence angle of {theta} degrees")
+        plt.title(f"Light beam for lambda = {_lambda} nm \n with an incidence angle of {theta} degrees")
         st.pyplot(plt)
 
     # def absorption(self, _theta, _lambda):
