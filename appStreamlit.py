@@ -830,7 +830,7 @@ class mooshGen:
         V = np.abs(En)
         V = np.flip(V)
         V = V / V.max()
-
+        theta = _theta *(180/ np.pi)
         norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
 
         plt.figure(1)
