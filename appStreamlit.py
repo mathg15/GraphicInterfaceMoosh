@@ -21,12 +21,6 @@ from Exemples.SPR import *
 
 st.set_page_config(page_title="Moosh", page_icon="./Images/logo_moosh.jpg")
 
-
-
-
-
-
-
 widget = sidebarWidget()
 
 st.sidebar.image("./Images/logo_moosh.jpg")
