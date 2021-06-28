@@ -4,8 +4,8 @@ from scipy import special
 import streamlit as st
 import matplotlib.image as im
 import matplotlib.colors as mcolors
-from mat import *
-from widget import *
+from Tools.mat import *
+from Tools.widget import *
 
 widget = sidebarWidget()
 
