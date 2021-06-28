@@ -9,7 +9,6 @@ import matplotlib.colors as mcolors
 
 from mat import *
 from widget import *
-from MooshGen import *
 from Pages.homepage import *
 from Pages.docs import *
 from Exemples.Bragg import *
