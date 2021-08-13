@@ -11,29 +11,29 @@ def exmoosh():
     sideBarExp = st.sidebar.radio("Choix de l'expérience", ('Miroir de Bragg', 'Plasmon de surface', 'Photovoltaïque'))
     if sideBarExp == 'Miroir de Bragg':
         st.sidebar.markdown(" ## Miroir de Bragg")
-        with st.sidebar.beta_expander(" Paramètres"):
+        with st.sidebar.expander(" Paramètres"):
             ####
             # st.markdown(" ## Paramètres")
             mirpara = widget.sliderPara()
             polparab = widget.checkPara()
 
-        with st.sidebar.beta_expander("Coefficients"):
+        with st.sidebar.expander("Coefficients"):
             # st.markdown(" ## Coefficients")
             coefAng = widget.lambdaInput1()
             coefLamb = widget.angleInput1()
             btnCoef = st.button("Afficher les coefficients")
             ####
-        with st.sidebar.beta_expander("Angular"):
+        with st.sidebar.expander("Angular"):
             # st.markdown(" ## Angular")
             angLamb = widget.lambdaInput2()
             btnAng = st.button("Afficher Angular")
 
-        with st.sidebar.beta_expander("Spectrum"):
+        with st.sidebar.expander("Spectrum"):
             # st.markdown(" ## Spectrum")
             specAngle = widget.angleInput2()
             btnSpec = st.button("Afficher Spectrum")
 
-        with st.sidebar.beta_expander("Beam"):
+        with st.sidebar.expander("Beam"):
             # st.markdown(" ## Beam")
             bPos = widget.beamPos()
             beamLamb = widget.lambdaInput3()
@@ -57,27 +57,27 @@ def exmoosh():
     elif sideBarExp == 'Plasmon de surface':
         st.sidebar.markdown(" ## Plasmons de surface")
 
-        with st.sidebar.beta_expander(" Paramètres"):
+        with st.sidebar.expander(" Paramètres"):
             st.markdown(" ## Paramètres")
             polSpr = widget.polParaSPR()
 
-        with st.sidebar.beta_expander("Coefficients"):
+        with st.sidebar.expander("Coefficients"):
             # st.markdown(" ## Coefficients")
             coefAng = widget.angCoefSPR()
             coefLamb = widget.lambCoefSPR()
             btnCoef = widget.btnCoefSPR()
             ####
-        with st.sidebar.beta_expander("Angular"):
+        with st.sidebar.expander("Angular"):
             # st.markdown(" ## Angular")
             angLamb = widget.lambAngSPR()
             btnAng = st.button("Afficher Angular")
 
-        with st.sidebar.beta_expander("Spectrum"):
+        with st.sidebar.expander("Spectrum"):
             # st.markdown(" ## Spectrum")
             specAngle = widget.angSpecSPR()
             btnSpec = st.button("Afficher Spectrum")
 
-        with st.sidebar.beta_expander("Beam"):
+        with st.sidebar.expander("Beam"):
             # st.markdown(" ## Beam")
             bPos = widget.posBeamSPR()
             beamLamb = widget.lambBeamSPR()
