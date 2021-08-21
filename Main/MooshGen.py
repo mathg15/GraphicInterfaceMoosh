@@ -858,22 +858,22 @@ class mooshGen:
     #
     #     g = len(Type)
     #
-    #     alpha = np.sqrt(TypeEps[0] * TypeMu[0]) * k0 * np.sin(thetacoef * (np.pi / 180))
-    #     gamma = np.sqrt(TypeEps * TypeMu * (k0 ** 2) - np.ones(g) * (alpha ** 2))
+    #     alpha = np.sqrt(Eps[0] * Mu[0]) * k0 * np.sin(thetacoef * (np.pi / 180))
+    #     gamma = np.sqrt(Eps * Mu * (k0 ** 2) - np.ones(g) * (alpha ** 2))
     #
     #     # On fait en sorte d'avoir un résultat positif en foction au cas où l'index serait négatif
-    #     if np.real(TypeEps[0]) < 0 and np.real(TypeMu[0]):
+    #     if np.real(Eps[0]) < 0 and np.real(Mu[0]):
     #         gamma[0] = -gamma[0]
     #
     #     # On modifie la détermination de la racine carrée pour obtenir un stabilité parfaite
     #     if g > 2:
     #         gamma[1: g - 2] = gamma[1:g - 2] * (1 - 2 * (np.imag(gamma[1:g - 2]) < 0))
     #     # Condition de l'onde sortante pour le dernier milieu
-    #     if np.real(TypeEps[g - 1]) < 0 and np.real(TypeMu[g - 1]) < 0 and np.real(
-    #             np.sqrt(TypeEps[g - 1] * TypeMu * (k0 ** 2) - (alpha ** 2))):
-    #         gamma[g - 1] = -np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] * (k0 ** 2) - (alpha ** 2))
+    #     if np.real(Eps[g - 1]) < 0 and np.real(Mu[g - 1]) < 0 and np.real(
+    #             np.sqrt(Eps[g - 1] * Mu * (k0 ** 2) - (alpha ** 2))):
+    #         gamma[g - 1] = -np.sqrt(Eps[g - 1] * Mu[g - 1] * (k0 ** 2) - (alpha ** 2))
     #     else:
-    #         gamma[g - 1] = np.sqrt(TypeEps[g - 1] * TypeMu[g - 1] * (k0 ** 2) - (alpha ** 2))
+    #         gamma[g - 1] = np.sqrt(Eps[g - 1] * Mu[g - 1] * (k0 ** 2) - (alpha ** 2))
     #
     #     T = np.zeros((2 * g, 2, 2), dtype=complex)
     #     T[0] = [[0, 1], [1, 0]]
@@ -896,14 +896,14 @@ class mooshGen:
     #
     #     H = np.zeros((2 * g - 1, 2, 2), dtype=complex)
     #     A = np.zeros((2 * g - 1, 2, 2), dtype=complex)
-    #     H[0] = T[2 * g]
+    #     H[0] = T[2 * g - 1]
     #     A[0] = T[0]
     #
-    #     for j in range(len(T) - 2):
+    #     for j in range(2 * g - 2):
     #         A[j + 1] = self.cascade(A[j], T[j + 1])
-    #         H[j + 1] = self.cascade(T[len(T) - 2 - j], H[j])
+    #         H[j + 1] = self.cascade(T[2 * g - 2 - j], H[j])
     #
-    #     I = np.zeros((len(T), 2, 2), dtype=complex)
+    #     I = np.zeros((2 * g, 2, 2), dtype=complex)
     #     for j in range(len(T) - 1):
     #         I[j] = np.array([[A[j][1, 0], A[j][1, 1] * H[len(T) - j - 2][0, 1]],
     #                          [A[j][1, 0] * H[len(T) - j - 2][0, 0], H[len(T) - j - 2][0, 1]]] / (
@@ -912,43 +912,65 @@ class mooshGen:
     #     I[2 * g - 1] = np.array([[I[2 * g - 2][0, 0] * np.exp(1j * gamma(g) * hauteur(g)),
     #                               I[2 * g - 1][0, 1] * np.exp(1j * gamma(g) * hauteur(g))], [0, 0]])
     #
-    #     poynting = np.zeros((1,2*g),dtype=complex)
     #     w = 0
+    #     poynting = np.zeros((1, 2 * g), dtype=complex)
     #
-    #     if self.pol == 0:
-    #         for j in range(0,2*g):
-    #             poynting[j] = np.real(I[j][0,0] + I[j][1,0]) * np.conj(I[j][0,0] - I[j][1, 0]) * gamma[w] / Mu[w] *\
-    #                           Mu[0]/gamma[0]
-    #             w = w + 1 - np.mod(j+1,2)
+    #     if self.pol == 0: # TE
+    #         for j in range(2 * g):
+    #             poynting[j] = np.real(I[j][0, 0] + I[j][1, 0]) * np.conj((I[j][0, 0] - I[j][1, 0])* gamma[w] / Mu[w]) * \
+    #                           Mu[0] / gamma[0]
+    #             w = w + 1 - np.mod(j + 1, 2)
     #
-    #     elif self.pol == 1:
-    #         for j in range(0,2*g):
-    #             poynting[j] = np.real(I[j][0,0] - I[j][1,0]) * np.conj(I[j][0,0] + I[j][1, 0]) * gamma[w] / Mu[w] *\
-    #                           Mu[0]/gamma[0]
-    #             w = w + 1 - np.mod(j+1,2)
+    #     elif self.pol == 1: # TM
+    #         for j in range(2 * g):
+    #             poynting[j] = np.real(I[j][0, 0] - I[j][1, 0]) * np.conj((I[j][0, 0] + I[j][1, 0]) * gamma[w] / Mu[w]) * \
+    #                           Mu[0] / gamma[0]
+    #             w = w + 1 - np.mod(j + 1, 2)
     #
     #     tmp = np.abs(-np.diff(poynting))
-    #     absorb=tmp[np.arange(0,2*g,2)]
+    #     absorb = tmp[np.arange(0, 2 * g, 2)]
     #     return absorb
     #
-    # def absorptionAngular(self,_lambda, Layer):
-    #     minAngle = 1
-    #     maxAngle = 90
+    # def AbsAngular(self):
+    #     """
+    #     This program can compute the reflection and transmission coefficients
+    #     as a function of the incidence angle, as well as the absorption in a
+    #     specified layer.
+    #     """
+    #     # Number of the layer where the absorption has to be computed
+    #     Layer = 2
+    #     # Workgin wavelength
+    #     lam = 500
+    #     # Polarization - 0 means s or TE; 1 means p or TM.
+    #     # polarization=0
+    #     # Angular range in degrees here
+    #     min = 0
+    #     max = 89
+    #     # Number of points
     #     Npoints = 200
-    #
-    #     Eps, Mu, Type, hauteur = self.structure(_lambda)
-    #
-    #     ab = np.zeros(Npoints,Type.size)
-    #     rTheta = np.linspace(minAngle,maxAngle,Npoints)
-    #
-    #     for i in range(Npoints):
-    #         tht = rTheta[i]
-    #         absorb = self.absorption(tht,_lambda)
-    #         ab[i,Layer] = absorb
-    #
+    #     # [Epsilon,Mu,Type,hauteur,pol]=structure()
+    #     Ab = np.zeros((Npoints, Type.size))
+    #     theta = np.linspace(min, max, Npoints)
+    #     r = np.zeros(Npoints, dtype=complex)
+    #     t = np.zeros(Npoints, dtype=complex)
+    #     for k in range(Npoints):
+    #         tmp = theta[k] / 180 * pi
+    #         [r[k], R, t[k], T] = coefficient(tmp, lam, pol)
     #     plt.figure(1)
-    #     plt.subplot(211)
-    #     plt.title("Absorption")
-    #     plt.plot(rTheta, ab)
+    #     plt.subplot(311)
+    #     plt.title("Modulus of the transmission coefficient")
+    #     plt.plot(theta, abs(t))
     #     plt.ylabel("Absorption")
     #     plt.xlabel("Angle (degrees)")
+    #     plt.subplot(312)
+    #     plt.plot(theta, abs(r) ** 2)
+    #     plt.ylabel("Coefficient")
+    #     plt.xlabel("Angle")
+    #     plt.title("Energy reflection coefficient")
+    #     plt.subplot(313)
+    #     plt.plot(theta, np.angle(r))
+    #     plt.ylabel("Phase (in radians)")
+    #     plt.xlabel("Angle in degree")
+    #     plt.title("Phase of the reflection coefficient")
+    #     plt.tight_layout()
+    #     plt.show()
