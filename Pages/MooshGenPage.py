@@ -71,3 +71,4 @@ def genmoosh():
 
     if btnBeamGen == 1:
         gen.beam(beamLambGen, beamAngGen, beamPosGen)
+
