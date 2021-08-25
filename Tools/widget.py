@@ -142,7 +142,7 @@ class sidebarWidget:
         return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{9}")
 
     def posBeamGen(self):
-        return st.slider("Position", 0.0, 1.0, 0.5, 0.1, key=f"{5}")
+        return st.slider("Position", 0.0, 1.0, 0.5, 0.1, key=f"{17}")
 
     def btnBeamGen(self):
         return st.button("Afficher Beam")
