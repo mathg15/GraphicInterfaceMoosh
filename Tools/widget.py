@@ -19,16 +19,16 @@ class sidebarWidget:
         return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=f"{3}")
 
     def lambdaInput1(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{1}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{21}")
 
     def lambdaInput2(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{2}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{222}")
 
     def lambdaInput3(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{3}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{23}")
 
     def lambdaInput4(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{4}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{24}")
 
     def beamPos(self):
         return st.slider("Position", 0.0, 1.0, 0.4, 0.1)
