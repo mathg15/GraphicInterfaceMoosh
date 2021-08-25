@@ -151,22 +151,22 @@ class sidebarWidget:
         return st.selectbox("Polarisation", ["TE", "TM"])
 
     def angCoefSPR(self):
-        return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{10}")
+        return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{31}")
 
     def angSpecSPR(self):
-        return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{11}")
+        return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{32}")
 
     def angBeamSPR(self):
-        return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{12}")
+        return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{33}")
 
     def lambCoefSPR(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{9}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{34}")
 
     def lambAngSPR(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{10}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{35}")
 
     def lambBeamSPR(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{11}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{36}")
 
 
     def btnAngSPR(self):
@@ -185,7 +185,7 @@ class sidebarWidget:
         return st.slider("Position", 0.0, 1.0, 0.4, 0.1, key=f"{3}")
 
     def absLambGen(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600,key=f"{12}")
+        return st.number_input("Longueur d'onde", 400, 800, 600,key=f"{37}")
 
     def btnAbsGen(self):
         return st.button("Afficher l'absorption")
