@@ -10,7 +10,7 @@ class sidebarWidget:
         return st.radio("Polarisation", ("Polarisation TE", "Polarisation TM"))
 
     def angleInput1(self):
-        return st.number_input("Angle d'incidence", 1, 90, 35, format=None, key=str(1))
+        return st.number_input("Angle d'incidence", 1, 90, 35, format=None, key=f{1})
 
     def angleInput2(self):
         return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=str(2))
