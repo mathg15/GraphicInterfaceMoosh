@@ -112,7 +112,7 @@ class sidebarWidget:
         return st.button("Afficher Angular")
 
     def thetaSpecGen(self):
-        return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=f"{5}")
+        return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=f"{15}")
 
     def btnSpecGen(self):
         return st.button("Afficher Spectrum")
