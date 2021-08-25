@@ -136,7 +136,7 @@ class sidebarWidget:
         return st.number_input("Angle maximum", 0, 90, 90, format=None, key=f"{8}")
 
     def lambBeamGen(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{8}")
+        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{14}")
 
     def angBeamGen(self):
         return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{9}")
