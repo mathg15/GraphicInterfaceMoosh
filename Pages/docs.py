@@ -9,4 +9,4 @@ def documentation():
         st.header("Théorie")
     elif choix == "Bibliographie":
         st.header("Bibliographie")
-    st.write("Utilisation de Moosh")
+    
