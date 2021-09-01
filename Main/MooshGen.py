@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import special
 import streamlit as st
-import numba as jit
+from numba import jit
 import matplotlib.image as im
 import matplotlib.colors as mcolors
 from Tools.mat import *
