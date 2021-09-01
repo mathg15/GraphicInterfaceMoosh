@@ -8,6 +8,7 @@ widget = sidebarWidget()
 
 def genmoosh():
 
+
     with st.sidebar.expander('Structure'):
         ####
         st.markdown(" ## Selection of the number of layers of the structure and the polarisation.")
@@ -24,7 +25,7 @@ def genmoosh():
         st.write("Definition of the angle")
         coefAngGen = widget.angleCoefGen()
 
-        btnCoefGen = widget.btnCoefGen()
+        btnCoefGenEN = widget.btnCoefGenEN()
 
     def btnCoefGenEN(self):
         return st.button("Show the coefficients")
@@ -41,10 +42,8 @@ def genmoosh():
         angMinAnGen = widget.minWinAngGen()
 
         switchRT = widget.switchRefTraGen()
-        btnAngGen = widget.btnAngGen()
+        btnAngGenEN = widget.btnAngGenEN()
 
-    def btnAngGenEN(self):
-        return st.button("Show Angular")
 
     if btnAngGenEN == 1:
         gen.angular(angLambGen, switchRT, angMinAnGen, angMaxAnGen)
@@ -63,10 +62,8 @@ def genmoosh():
         st.markdown("## Reflection coefficient as a function of wavelength")
         st.write("Definition of a constant angle")
         specAngGen = widget.thetaSpecGen()
-        btnSpecGen = widget.btnSpecGen()
+        btnSpecGenEN = widget.btnSpecGenEN()
 
-    def btnSpecGenEN(self):
-        return st.button("Show Spectrum")
 
     if btnSpecGenEN == 1:
         gen.spectrum(specAngGen)
@@ -77,10 +74,7 @@ def genmoosh():
         beamAngGen = widget.angBeamGen()
         beamLambGen = widget.lambBeamGen()
         beamPosGen = widget.posBeamGen()
-        btnBeamGen = widget.btnBeamGen()
-
-    def btnBeamGenEN(self):
-        return st.button("Show the light beam")
+        btnBeamGenEN = widget.btnBeamGenEN()
 
     if btnBeamGenEN == 1:
         gen.beam(beamLambGen, beamAngGen, beamPosGen)
