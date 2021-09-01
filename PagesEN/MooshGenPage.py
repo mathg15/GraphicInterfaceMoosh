@@ -10,18 +10,18 @@ def genmoosh():
 
     with st.sidebar.expander('Structure'):
         ####
-        st.markdown(" ## Sélection du nombre de couche de la structure et de la polarisation")
+        st.markdown(" ## Selection of the number of layers of the structure and the polarisation.")
         strucSlider = widget.struslider()
         pol = widget.multiSelectPolaGen()
-        st.markdown(" ## Choix des matériaux de la structure")
+        st.markdown(" ## Choice of materials for the structure")
         gen = mooshGen(strucSlider, pol)
         # gen.structure(permSet)
 
     with st.sidebar.expander('Coefficients'):
-        st.markdown("## Coefficients de réflexion et de transmittance de la structure")
-        st.write("Définition de la longeur d'onde")
+        st.markdown("## Reflection and transmittance coefficients of the structure")
+        st.write("Definition of the wavelength")
         coefLambGen = widget.lambdaCoefGen()
-        st.write("Définition de l'angle")
+        st.write("Definition of the angle")
         coefAngGen = widget.angleCoefGen()
 
         btnCoefGen = widget.btnCoefGen()
@@ -30,10 +30,10 @@ def genmoosh():
         gen.affichageCoef(coefAngGen, coefLambGen)
 
     with st.sidebar.expander('Angular'):
-        st.markdown("## Coefficient de réflexion en fonction de l'angle")
-        st.write("Définition d'une longeur d'onde constante")
+        st.markdown("## Reflection coefficient as a function of angle")
+        st.write("Definition of a constant wavelength")
         angLambGen = widget.lambAngGen()
-        st.write("Intervalle angulaire")
+        st.write("Angular interval")
         angMaxAnGen = widget.maxWinAngGen()
         angMinAnGen = widget.minWinAngGen()
 
@@ -54,8 +54,8 @@ def genmoosh():
     #     gen.absorptionAngular(absLambGen,absLayerGen)
 
     with st.sidebar.expander('Spectrum'):
-        st.markdown("## Coefficient de réflexion en fonction de la longueur d'onde")
-        st.write("Définition d'un angle constant")
+        st.markdown("## Reflection coefficient as a function of wavelength")
+        st.write("Definition of a constant angle")
         specAngGen = widget.thetaSpecGen()
         btnSpecGen = widget.btnSpecGen()
 
@@ -63,7 +63,7 @@ def genmoosh():
         gen.spectrum(specAngGen)
 
     with st.sidebar.expander('Beam'):
-        st.markdown("## Modélisation du faisceau lumineux")
+        st.markdown("## Modeling the light beam")
         beamAngGen = widget.angBeamGen()
         beamLambGen = widget.lambBeamGen()
         beamPosGen = widget.posBeamGen()
