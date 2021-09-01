@@ -198,3 +198,6 @@ class sidebarWidget:
 
     def btnBeamGenEN(self):
         return st.button("Show the light beam")
+
+    def btnCoefGenEN(self):
+        return st.button("Show the coefficients")
