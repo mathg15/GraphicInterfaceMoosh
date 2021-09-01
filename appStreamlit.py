@@ -57,7 +57,9 @@ if side_menu_navigation == 'Homepage':
     homepage()
 elif side_menu_navigation == 'Moosh':
     genmoosh()
-elif side_menu_navigation == 'Exemples':
+elif side_menu_navigation == 'Examples':
     exmoosh()
 elif side_menu_navigation == 'Documentation':
     documentation()
+elif side_menu_navigation == 'Updates':
+    maj()
