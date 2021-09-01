@@ -29,7 +29,7 @@ def genmoosh():
 
     
 
-    if btnCoefGen == 1:
+    if btnCoefGenEN == 1:
         gen.affichageCoef(coefAngGen, coefLambGen)
 
     with st.sidebar.expander('Angular'):
