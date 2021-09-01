@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import special
 import streamlit as st
-from numba import jit
 import matplotlib.image as im
 import matplotlib.colors as mcolors
 from Tools.mat import *
@@ -722,7 +721,7 @@ class mooshGen:
         plt.tight_layout()
         st.pyplot(plt)
     
-    @jit(nopython=True)
+    
     def beam(self, _lambda, _theta, C):
 
         TypeEps, TypeMu, Type, hauteur = self.structure(_lambda)
