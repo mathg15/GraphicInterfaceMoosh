@@ -8,7 +8,7 @@ widget = sidebarWidget()
 
 def genmoosh():
 
-    with st.sidebar.beta_expander('Structure'):
+    with st.sidebar.expander('Structure'):
         ####
         st.markdown(" ## Sélection du nombre de couche de la structure et de la polarisation")
         strucSlider = widget.struslider()
@@ -17,7 +17,7 @@ def genmoosh():
         gen = mooshGen(strucSlider, pol)
         # gen.structure(permSet)
 
-    with st.sidebar.beta_expander('Coefficients'):
+    with st.sidebar.expander('Coefficients'):
         st.markdown("## Coefficients de réflexion et de transmittance de la structure")
         st.write("Définition de la longeur d'onde")
         coefLambGen = widget.lambdaCoefGen()
@@ -29,7 +29,7 @@ def genmoosh():
     if btnCoefGen == 1:
         gen.affichageCoef(coefAngGen, coefLambGen)
 
-    with st.sidebar.beta_expander('Angular'):
+    with st.sidebar.expander('Angular'):
         st.markdown("## Coefficient de réflexion en fonction de l'angle")
         st.write("Définition d'une longeur d'onde constante")
         angLambGen = widget.lambAngGen()
@@ -43,7 +43,7 @@ def genmoosh():
     if btnAngGen == 1:
         gen.angular(angLambGen, switchRT, angMinAnGen, angMaxAnGen)
 
-    # with st.sidebar.beta_expander("Absorption"):
+    # with st.sidebar.expander("Absorption"):
     #     st.markdown("## Absorption")
     #     st.write("Définition d'une longeur d'onde constante")
     #     absLambGen = widget.absLambGen()
@@ -53,7 +53,7 @@ def genmoosh():
     # if btnAbs == 1:
     #     gen.absorptionAngular(absLambGen,absLayerGen)
 
-    with st.sidebar.beta_expander('Spectrum'):
+    with st.sidebar.expander('Spectrum'):
         st.markdown("## Coefficient de réflexion en fonction de la longueur d'onde")
         st.write("Définition d'un angle constant")
         specAngGen = widget.thetaSpecGen()
@@ -62,7 +62,7 @@ def genmoosh():
     if btnSpecGen == 1:
         gen.spectrum(specAngGen)
 
-    with st.sidebar.beta_expander('Beam'):
+    with st.sidebar.expander('Beam'):
         st.markdown("## Modélisation du faisceau lumineux")
         beamAngGen = widget.angBeamGen()
         beamLambGen = widget.lambBeamGen()
