@@ -18,9 +18,9 @@ class Bragg:
         self.n_periods = periods
 
         # Définition de la polarisation
-        if pol == "Polarisation TE":
+        if pol == "TE":
             polw = 1
-        elif pol == "Polarisation TM":
+        elif pol == "TM":
             polw = 0
 
         self.pol = polw
