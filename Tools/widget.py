@@ -190,3 +190,11 @@ class sidebarWidget:
     def sliderLayerGen(self):
         return st.slider("Layer", 1, 5, 2)
 
+    def btnAngGenEN(self):
+        return st.button("Show Angular")
+
+    def btnSpecGenEN(self):
+        return st.button("Show Spectrum")
+
+    def btnBeamGenEN(self):
+        return st.button("Show the light beam")
