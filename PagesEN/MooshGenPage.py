@@ -27,8 +27,7 @@ def genmoosh():
 
         btnCoefGenEN = widget.btnCoefGenEN()
 
-    def btnCoefGenEN(self):
-        return st.button("Show the coefficients")
+    
 
     if btnCoefGen == 1:
         gen.affichageCoef(coefAngGen, coefLambGen)
