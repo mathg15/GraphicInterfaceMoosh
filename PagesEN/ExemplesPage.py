@@ -8,10 +8,10 @@ widget = sidebarWidget()
 
 
 def exmoosh():
-    sideBarExp = st.sidebar.radio("Choix de l'expérience", ('Miroir de Bragg', 'Plasmon de surface', 'Photovoltaïque'))
-    if sideBarExp == 'Miroir de Bragg':
-        st.sidebar.markdown(" ## Miroir de Bragg")
-        with st.sidebar.expander(" Paramètres"):
+    sideBarExp = st.sidebar.radio("Choice of the experiment", ('Bragg mirror', 'Surface Plasmon', 'Photovoltaic'))
+    if sideBarExp == 'Bragg mirror':
+        st.sidebar.markdown(" ## Bragg mirror")
+        with st.sidebar.expander("Settings"):
             ####
             # st.markdown(" ## Paramètres")
             mirpara = widget.sliderPara()
@@ -21,24 +21,24 @@ def exmoosh():
             # st.markdown(" ## Coefficients")
             coefAng = widget.lambdaInput1()
             coefLamb = widget.angleInput1()
-            btnCoef = st.button("Afficher les coefficients")
+            btnCoef = st.button("Show coefficients")
             ####
         with st.sidebar.expander("Angular"):
             # st.markdown(" ## Angular")
             angLamb = widget.lambdaInput2()
-            btnAng = st.button("Afficher Angular")
+            btnAng = st.button("Show Angular")
 
         with st.sidebar.expander("Spectrum"):
             # st.markdown(" ## Spectrum")
             specAngle = widget.angleInput2()
-            btnSpec = st.button("Afficher Spectrum")
+            btnSpec = st.button("Show Spectrum")
 
         with st.sidebar.expander("Beam"):
             # st.markdown(" ## Beam")
             bPos = widget.beamPos()
             beamLamb = widget.lambdaInput3()
             beamAng = widget.angleInput3()
-            btnBeam = st.button("Afficher Beam")
+            btnBeam = st.button("Show Beam")
 
         Bragg_ = Bragg(mirpara, polparab)
 
@@ -54,11 +54,11 @@ def exmoosh():
         if btnBeam == 1:
             Bragg_.beam(beamLamb, beamAng, bPos)
 
-    elif sideBarExp == 'Plasmon de surface':
-        st.sidebar.markdown(" ## Plasmons de surface")
+    elif sideBarExp == 'Surface Plasmon':
+        st.sidebar.markdown(" ## Surface Plasmon")
 
-        with st.sidebar.expander(" Paramètres"):
-            st.markdown(" ## Paramètres")
+        with st.sidebar.expander("Settings"):
+            # st.markdown(" ## Settings")
             polSpr = widget.polParaSPR()
 
         with st.sidebar.expander("Coefficients"):
@@ -70,19 +70,19 @@ def exmoosh():
         with st.sidebar.expander("Angular"):
             # st.markdown(" ## Angular")
             angLamb = widget.lambAngSPR()
-            btnAng = st.button("Afficher Angular")
+            btnAng = st.button("Show Angular")
 
         with st.sidebar.expander("Spectrum"):
             # st.markdown(" ## Spectrum")
             specAngle = widget.angSpecSPR()
-            btnSpec = st.button("Afficher Spectrum")
+            btnSpec = st.button("Show Spectrum")
 
         with st.sidebar.expander("Beam"):
             # st.markdown(" ## Beam")
             bPos = widget.posBeamSPR()
             beamLamb = widget.lambBeamSPR()
             beamAng = widget.angBeamSPR()
-            btnBeam = st.button("Afficher Beam")
+            btnBeam = st.button("Show Beam")
 
         _SPR = SPR(polSpr)
 
@@ -98,5 +98,5 @@ def exmoosh():
         if btnBeam == 1:
             _SPR.beam(beamLamb, beamAng, bPos)
 
-    elif sideBarExp == 'Photovoltaïque':
+    elif sideBarExp == 'Photovoltaic':
         st.text("Work in progress")
