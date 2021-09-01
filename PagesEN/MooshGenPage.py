@@ -26,6 +26,9 @@ def genmoosh():
 
         btnCoefGen = widget.btnCoefGen()
 
+    def btnCoefGenEN(self):
+        return st.button("Show the coefficients")
+
     if btnCoefGen == 1:
         gen.affichageCoef(coefAngGen, coefLambGen)
 
@@ -40,7 +43,10 @@ def genmoosh():
         switchRT = widget.switchRefTraGen()
         btnAngGen = widget.btnAngGen()
 
-    if btnAngGen == 1:
+    def btnAngGenEN(self):
+        return st.button("Show Angular")
+
+    if btnAngGenEN == 1:
         gen.angular(angLambGen, switchRT, angMinAnGen, angMaxAnGen)
 
     # with st.sidebar.expander("Absorption"):
@@ -59,9 +65,13 @@ def genmoosh():
         specAngGen = widget.thetaSpecGen()
         btnSpecGen = widget.btnSpecGen()
 
-    if btnSpecGen == 1:
+    def btnSpecGenEN(self):
+        return st.button("Show Spectrum")
+
+    if btnSpecGenEN == 1:
         gen.spectrum(specAngGen)
 
+    
     with st.sidebar.expander('Beam'):
         st.markdown("## Modeling the light beam")
         beamAngGen = widget.angBeamGen()
@@ -69,5 +79,8 @@ def genmoosh():
         beamPosGen = widget.posBeamGen()
         btnBeamGen = widget.btnBeamGen()
 
-    if btnBeamGen == 1:
+    def btnBeamGenEN(self):
+        return st.button("Show the light beam")
+
+    if btnBeamGenEN == 1:
         gen.beam(beamLambGen, beamAngGen, beamPosGen)
