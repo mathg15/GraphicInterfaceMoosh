@@ -58,7 +58,7 @@ class sidebarWidget:
         return st.number_input("Epaisseur du matériau 3", 1, 20000, 400, 1, key=f"{3}")
 
     def selecBoxGen4(self):
-        return st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=f"{4}")
+        return st.selectbox("Choix du matériau 4", ("Air", "Eau", "Bk7", "SiO2", "TiO2", "Au", "Cr","Ag","ZnO"), key=f"{144}")
 
     def hauteurGen4(self):
         return st.number_input("Epaisseur du matériau 4", 1, 20000, 400, 1, key=f"{104}")
