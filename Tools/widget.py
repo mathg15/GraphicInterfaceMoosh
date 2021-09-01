@@ -121,7 +121,7 @@ class sidebarWidget:
         return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{7}")
 
     def multiSelectPolaGen(self):
-        return st.radio("Polarisation", ["TE", "TM"],key=f"{566}")
+        return st.selectbox("Polarisation", ["Polarisation TE", "Polarisation TM"])
 
     def switchRefTraGen(self):
         return st.radio("", ("Reflexion", "Transmission"))
