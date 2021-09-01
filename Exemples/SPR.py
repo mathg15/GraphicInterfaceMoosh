@@ -39,7 +39,7 @@ class SPR:
         Eps = np.array([Eps1, Eps2, Eps3, Eps4])
         Mu = np.array([1, 1, 1, 1])
         Type = np.array([0, 1, 2, 3])
-        hauteur = np.array([4000, 4, 38, 1000])
+        hauteur = np.array([10000, 4, 38, 6000])
 
         return Eps, Mu, Type, hauteur
 
