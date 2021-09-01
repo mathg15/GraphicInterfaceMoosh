@@ -310,11 +310,14 @@ class SPR:
             En = En + X[int(nm)] * E
 
         V = np.abs(En)
+        V = np.flip(V)
         V = V / V.max()
 
+        theta = _theta * (180 / np.pi)
         norm = mcolors.Normalize(vmax=V.max(), vmin=V.min())
 
         plt.figure(1)
         plt.pcolormesh(V / V.max(), norm=norm, cmap='jet')
         plt.colorbar()
+        plt.title(f"Light beam for lambda = {_lambda} \n with an incidence angle of {theta} degrees")
         st.pyplot(plt)
