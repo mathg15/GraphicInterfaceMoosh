@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import special
 import streamlit as st
+import numba as jit
 import matplotlib.image as im
 import matplotlib.colors as mcolors
 from Tools.mat import *
@@ -720,7 +721,8 @@ class mooshGen:
         plt.title("Phase of the reflection coefficient")
         plt.tight_layout()
         st.pyplot(plt)
-
+    
+    @jit(nopython=True)
     def beam(self, _lambda, _theta, C):
 
         TypeEps, TypeMu, Type, hauteur = self.structure(_lambda)
