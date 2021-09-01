@@ -19,16 +19,16 @@ class sidebarWidget:
         return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=f"{3}")
 
     def lambdaInput1(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{21}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{21}")
 
     def lambdaInput2(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{222}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{222}")
 
     def lambdaInput3(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{23}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{23}")
 
     def lambdaInput4(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{24}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{24}")
 
     def beamPos(self):
         return st.slider("Position", 0.0, 1.0, 0.4, 0.1)
@@ -103,10 +103,10 @@ class sidebarWidget:
         return st.number_input("Angle d'incidence", 0, 90, 35, format=None, key=f"{4}")
 
     def lambdaCoefGen(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{5}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{5}")
 
     def lambAngGen(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{6}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{6}")
 
     def btnAngGen(self):
         return st.button("Afficher Angular")
@@ -121,7 +121,7 @@ class sidebarWidget:
         return st.button("Afficher les coefficients")
 
     def PermiSetGen(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, format=None, key=f"{7}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, format=None, key=f"{7}")
 
     def multiSelectPolaGen(self):
         return st.selectbox("Polarisation", ["Polarisation TE", "Polarisation TM"])
@@ -160,13 +160,13 @@ class sidebarWidget:
         return st.number_input("Angle", 1.0, 90.0, 45.0, 0.1, key=f"{33}")
 
     def lambCoefSPR(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{34}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, key=f"{34}")
 
     def lambAngSPR(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{35}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, key=f"{35}")
 
     def lambBeamSPR(self):
-        return st.number_input("Longueur d'onde", 400, 800, 600, key=f"{36}")
+        return st.number_input("Longueur d'onde / Wavelength", 400, 800, 600, key=f"{36}")
 
 
     def btnAngSPR(self):
