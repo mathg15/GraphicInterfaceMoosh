@@ -52,7 +52,7 @@ st.sidebar.image("./Images/logo_moosh.jpg")
 st.sidebar.title("Navigation")
 st.sidebar.write('')
 
-side_menu_navigation = st.sidebar.radio('', ('Homepage', 'Moosh', 'Exemples', 'Documentation',"Updates"))
+side_menu_navigation = st.sidebar.radio('', ('Homepage', 'Moosh', 'Examples', 'Documentation',"Updates"))
 if side_menu_navigation == 'Homepage':
     homepage()
 elif side_menu_navigation == 'Moosh':
