@@ -19,9 +19,9 @@ class mooshGen:
         self.hauteur = np.array([])
 
         if pol == "Polarisation TE":
-            self.polW = 1
+            self.pol = 1
         elif pol == "Polarisation TM":
-            self.polW = 0
+            self.pol = 0
 
         
 
