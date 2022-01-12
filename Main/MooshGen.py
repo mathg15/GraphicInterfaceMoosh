@@ -566,9 +566,9 @@ class mooshGen:
         g = len(Type)
 
         if self.pol == 1:
-            f = TypeMu
-        elif self.pol == 0:
             f = TypeEps
+        elif self.pol == 0:
+            f = TypeMu
 
         # Définition de alpha et gamma en fonction de TypeEps, TypeMu, k0 et Theta
         alpha = np.sqrt(TypeEps[0] * TypeMu[0]) * k0 * np.sin(thetacoef * (np.pi / 180))
